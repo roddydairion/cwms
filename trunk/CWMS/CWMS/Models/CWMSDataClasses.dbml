@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="CWMSDatabase" Class="CWMSDataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.\SQLEXPRESS;Initial Catalog=CWMSDatabase;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="CWMSDatabaseConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Suppliers" Member="Suppliers">
+    <Type Name="Supplier">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="Telephone" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Association Name="Supplier_ComponentStock" Member="ComponentStocks" ThisKey="Id" OtherKey="SupplierId" Type="ComponentStock" />
+      <Association Name="Supplier_ProductStock" Member="ProductStocks" ThisKey="Id" OtherKey="SupplierId" Type="ProductStock" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Components" Member="Components">
+    <Type Name="Component">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(300) NOT NULL" CanBeNull="false" />
+      <Column Name="Unit" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Component_ComponentStock" Member="ComponentStocks" ThisKey="Id" OtherKey="ComponentId" Type="ComponentStock" />
+      <Association Name="Component_ProductComponent" Member="ProductComponents" ThisKey="Id" OtherKey="ComponentId" Type="ProductComponent" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ComponentStocks" Member="ComponentStocks">
+    <Type Name="ComponentStock">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ComponentId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CurrentQuantity" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="OriginalQuantity" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Cost" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="SupplierId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="ComponentStock_OrderItemsStock" Member="OrderItemsStocks" ThisKey="Id" OtherKey="ComponentStockId" Type="OrderItemsStock" />
+      <Association Name="Component_ComponentStock" Member="Component" ThisKey="ComponentId" OtherKey="Id" Type="Component" IsForeignKey="true" />
+      <Association Name="Supplier_ComponentStock" Member="Supplier" ThisKey="SupplierId" OtherKey="Id" Type="Supplier" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Customers" Member="Customers">
+    <Type Name="Customer">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="Telephone" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Association Name="Customer_Car" Member="Cars" ThisKey="Id" OtherKey="CustomerId" Type="Car" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OrderItems" Member="OrderItems">
+    <Type Name="OrderItem">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OrderId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ProductId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="PriceId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TotalPrice" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Association Name="OrderItem_OrderItemsStock" Member="OrderItemsStocks" ThisKey="Id" OtherKey="OrderItemId" Type="OrderItemsStock" />
+      <Association Name="Price_OrderItem" Member="Price" ThisKey="PriceId" OtherKey="Id" Type="Price" IsForeignKey="true" />
+      <Association Name="Product_OrderItem" Member="Product" ThisKey="ProductId" OtherKey="Id" Type="Product" IsForeignKey="true" />
+      <Association Name="Order_OrderItem" Member="Order" ThisKey="OrderId" OtherKey="Id" Type="Order" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ProductComponent" Member="ProductComponents">
+    <Type Name="ProductComponent">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProductId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ComponentId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Association Name="Component_ProductComponent" Member="Component" ThisKey="ComponentId" OtherKey="Id" Type="Component" IsForeignKey="true" />
+      <Association Name="Product_ProductComponent" Member="Product" ThisKey="ProductId" OtherKey="Id" Type="Product" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ProductStocks" Member="ProductStocks">
+    <Type Name="ProductStock">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProductId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CurrentQuantity" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="OriginalQuantity" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Cost" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="SupplierId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="ProductStock_OrderItemsStock" Member="OrderItemsStocks" ThisKey="Id" OtherKey="ProductStockId" Type="OrderItemsStock" />
+      <Association Name="Supplier_ProductStock" Member="Supplier" ThisKey="SupplierId" OtherKey="Id" Type="Supplier" IsForeignKey="true" />
+      <Association Name="Product_ProductStock" Member="Product" ThisKey="ProductId" OtherKey="Id" Type="Product" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OrderItemsStocks" Member="OrderItemsStocks">
+    <Type Name="OrderItemsStock">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OrderItemId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ProductStockId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ComponentStockId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Association Name="ComponentStock_OrderItemsStock" Member="ComponentStock" ThisKey="ComponentStockId" OtherKey="Id" Type="ComponentStock" IsForeignKey="true" />
+      <Association Name="OrderItem_OrderItemsStock" Member="OrderItem" ThisKey="OrderItemId" OtherKey="Id" Type="OrderItem" IsForeignKey="true" />
+      <Association Name="ProductStock_OrderItemsStock" Member="ProductStock" ThisKey="ProductStockId" OtherKey="Id" Type="ProductStock" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="" Member="TempComponentStockQuantities">
+    <Type Name="TempComponentStockQuantity">
+      <Column Name="ComponentStockId" Type="System.Int32" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Decimal" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="" Member="TempProductStockQuantities">
+    <Type Name="TempProductStockQuantity">
+      <Column Name="ProductStockId" Type="System.Int32" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Decimal" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Cars" Member="Cars">
+    <Type Name="Car">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CustomerId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RegistrationNumber" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="CarModelId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Car_Order" Member="Orders" ThisKey="Id" OtherKey="CarId" Type="Order" />
+      <Association Name="Customer_Car" Member="Customer" ThisKey="CustomerId" OtherKey="Id" Type="Customer" IsForeignKey="true" />
+      <Association Name="CarModel_Car" Member="CarModel" ThisKey="CarModelId" OtherKey="Id" Type="CarModel" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CarBrands" Member="CarBrands">
+    <Type Name="CarBrand">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Association Name="CarBrand_CarModel" Member="CarModels" ThisKey="Id" OtherKey="CarBrandId" Type="CarModel" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CarModels" Member="CarModels">
+    <Type Name="CarModel">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="CarBrandId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="CarModel_Car" Member="Cars" ThisKey="Id" OtherKey="CarModelId" Type="Car" />
+      <Association Name="CarModel_Price" Member="Prices" ThisKey="Id" OtherKey="CarModelId" Type="Price" />
+      <Association Name="CarBrand_CarModel" Member="CarBrand" ThisKey="CarBrandId" OtherKey="Id" Type="CarBrand" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Prices" Member="Prices">
+    <Type Name="Price">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProductId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="CarModelId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Price_OrderItem" Member="OrderItems" ThisKey="Id" OtherKey="PriceId" Type="OrderItem" />
+      <Association Name="CarModel_Price" Member="CarModel" ThisKey="CarModelId" OtherKey="Id" Type="CarModel" IsForeignKey="true" />
+      <Association Name="Product_Price" Member="Product" ThisKey="ProductId" OtherKey="Id" Type="Product" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ProductGroups" Member="ProductGroups">
+    <Type Name="ProductGroup">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Association Name="ProductGroup_Product" Member="Products" ThisKey="Id" OtherKey="ProductGroupId" Type="Product" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Products" Member="Products">
+    <Type Name="Product">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(300) NOT NULL" CanBeNull="false" />
+      <Column Name="Unit" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="IsService" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ProductGroupId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BarCode" Type="System.String" DbType="NChar(13)" CanBeNull="true" />
+      <Association Name="Product_OrderItem" Member="OrderItems" ThisKey="Id" OtherKey="ProductId" Type="OrderItem" />
+      <Association Name="Product_ProductComponent" Member="ProductComponents" ThisKey="Id" OtherKey="ProductId" Type="ProductComponent" />
+      <Association Name="Product_ProductStock" Member="ProductStocks" ThisKey="Id" OtherKey="ProductId" Type="ProductStock" />
+      <Association Name="Product_Price" Member="Prices" ThisKey="Id" OtherKey="ProductId" Type="Price" />
+      <Association Name="ProductGroup_Product" Member="ProductGroup" ThisKey="ProductGroupId" OtherKey="Id" Type="ProductGroup" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Employees" Member="Employees">
+    <Type Name="Employee">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(300) NOT NULL" CanBeNull="false" />
+      <Column Name="NationalId" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Telephone" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Association Name="Employee_Order" Member="Orders" ThisKey="Id" OtherKey="EmployeeId" Type="Order" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Orders" Member="Orders">
+    <Type Name="Order">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CarId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OrderDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="AppointmentDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="AcceptedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Paid" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="SlotNumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Order_OrderItem" Member="OrderItems" ThisKey="Id" OtherKey="OrderId" Type="OrderItem" />
+      <Association Name="Car_Order" Member="Car" ThisKey="CarId" OtherKey="Id" Type="Car" IsForeignKey="true" />
+      <Association Name="Employee_Order" Member="Employee" ThisKey="EmployeeId" OtherKey="Id" Type="Employee" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
