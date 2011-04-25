@@ -14,10 +14,17 @@
               else
               {
                   CWMS.Models.Car car = (CWMS.Models.Car)ViewData["car"];%>
+                  <%try{ %>
                   <%: car.Customer.Name %>
+                  <%}catch{ %>
+                  ไม่พบชื่อลูกค้า
+                  <%} %>
                 <br />
-                
-                <%: car.CarModel.CarBrand + ": " + car.RegistrationNumber %> บาท
+                <%try
+                  { %>
+                <%: car.CarModel.CarBrand + ": " + car.RegistrationNumber%> บาท
+                <%}
+                  catch { } %>
             <%} %>
             </a></li>
             

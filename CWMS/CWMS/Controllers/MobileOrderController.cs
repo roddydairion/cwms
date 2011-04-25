@@ -11,9 +11,10 @@ namespace CWMS.Controllers
         OrderRepository repository = new OrderRepository();
         ProductRepository productRepository = new ProductRepository();
         CustomerRepository customerRepository = new CustomerRepository();
+        CWMS.Models.CWMSDataClassesDataContext db = new CWMSDataClassesDataContext();
         public ActionResult SelectCar()
         {
-            return View();
+            return View("SelectCar");
         }
         [HttpPost]
         public ActionResult SelectCar(string registrationNumber)
@@ -27,17 +28,31 @@ namespace CWMS.Controllers
             }
             else
             {
-                return RedirectToAction("AddCar", new { registrationNumber = registrationNumber });
+                db.Cars.InsertOnSubmit(new Car
+                {
+                    RegistrationNumber = registrationNumber
+                });
+                db.SubmitChanges();
+                customerRepository = new CustomerRepository();
+                Car car = customerRepository.GetCar(registrationNumber);
+                Session.Remove("car");
+                Session.Add("car", car);
+                return RedirectToAction("Index");
             }
-        }
-        public ActionResult AddCar(string registrationNumber)
-        {
-            ViewData["registrationNumber"] = registrationNumber.Replace(" ", "");
-            return View();
         }
         public ActionResult ClearSessions()
         {
             Session.Clear();
+            return RedirectToAction("Index");
+        }
+        public ActionResult ClearProductSession()
+        {
+            Session.Remove("cart");
+            return RedirectToAction("Index");
+        }
+        public ActionResult ClearCarSession()
+        {
+            Session.Remove("car");
             return RedirectToAction("Index");
         }
         public ActionResult Index()

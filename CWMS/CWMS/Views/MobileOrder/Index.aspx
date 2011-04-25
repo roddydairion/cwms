@@ -5,16 +5,24 @@
         <h1>สั่งสินค้า</h1>
         <div data-role="navbar">
 		<ul >
-			<li><a href="/MobileOrder/SelectCar" data-theme="b">
+			<li>
+            
+            <%if(Session["car"] == null){ %>
+            <a href="/MobileOrder/SelectCar" data-theme="b">
+            <%}else{ %>
+            <a href="/MobileOrder/ClearCarSession" data-theme="a">
+            <%} %>
                 <%if(Session["car"] == null){ %>
                     ไม่ได้เลือกรถ<br />&nbsp;
                 <%} else{
                       CWMS.Models.Car car = (CWMS.Models.Car)Session["car"];%>
-                      <%: car.Customer.Name %><br /><%:car.RegistrationNumber %>
+                      <%try
+                        { %><%: car.Customer.Name%><br /><%}
+                        catch { } %><%:car.RegistrationNumber %>
                 <%} %>
                 </a>
             </li>
-            <li><a href="#" data-theme="b">
+            <li><a href="/MobileOrder/ClearProductSession" data-theme="b">
             <%if (Session["cart"] == null)
               {%>
                 ไม่มีสินค้า<br />ในรายการ
@@ -53,11 +61,12 @@
         <%foreach(CWMS.Models.Product service in (IEnumerable<CWMS.Models.Product>)ViewData["allservices"]){ %>
             <li><%= Html.ActionLink(service.Name, "AddItemToShoppingCart", new { productId = service.Id })%>
             <span class="ui-li-count">
-            <%if (service.CurrentServicePrice(((CWMS.Models.Car)Session["car"]).CarModelId.Value).HasValue)
-              {%>
+            <%//if (service.CurrentServicePrice(((CWMS.Models.Car)Session["car"]).CarModelId.Value).HasValue)
+              
+              try            {%>
                 <%: service.CurrentPrice.ToString("n2")%> บาท
                 <%}
-              else
+              catch
               { %>
               ไม่กำหนดราคา
                 <%} %>
@@ -68,7 +77,7 @@
     <br /><br />
     <%}else
       { %>
-        <ul data-role="listview" data-theme="c" data-inset="false" >
+        <ul data-role="listview" data-theme="c" data-inset="false" data-filter="true">
         
         <li><a href="#">เลือกรถก่อนเลือกบริการ</a> </li>
         

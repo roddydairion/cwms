@@ -58,10 +58,12 @@ namespace CWMS.Controllers
             }
         }
         [HttpPost]
-        public ActionResult AddComponentStock(int componentId, int supplierId, decimal cost, decimal originalQuantity, DateTime date)
+        public ActionResult AddComponentStock(string Day, string Month,string Year,int componentId, int supplierId, decimal cost, decimal originalQuantity)
         {
             try
             {
+
+                DateTime date = DateTime.Parse(Day + '/' + Month + '/' + Year);
                 stockRepository.AddComponentStock(componentId, originalQuantity, date, cost, supplierId);
                 return RedirectToAction("ComponentStockDetails", new { componentId = componentId });
             }
