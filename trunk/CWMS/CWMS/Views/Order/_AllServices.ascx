@@ -2,7 +2,8 @@
 <% CWMS.Models.ProductRepository productRepository = new CWMS.Models.ProductRepository();
    CWMS.Models.CustomerRepository customerRepository = new CWMS.Models.CustomerRepository();%>
     <table>
-    <%if(ViewData["productGroupId"] != null){
+    <%CWMS.Models.Car car = customerRepository.GetCar(Model);
+        if(ViewData["productGroupId"] != null){
           CWMS.Models.ProductGroup productGroup = productRepository.GetProductGroup((int)ViewData["productGroupId"]);%>
         <tr>
             <th class="top" scope="col" colspan="2"><b>กลุ่ม: <%: productGroup.Name %></b> - <%= Ajax.ActionLink("กลับ", "ShowProductList", new { carId = Model }, new AjaxOptions
@@ -36,7 +37,25 @@
                                 UpdateTargetId = "shoppingcart",
                                 LoadingElementId = "indicator"
                             }) %></td>
-                <td><%: product.Prices.FirstOrDefault().Amount %></td>
+                <td>
+                <%try
+                  {
+                      decimal? price = product.CurrentServicePrice(car.CarModelId.Value);
+                      if (price.HasValue)
+                      {%>
+                <%: price.Value.ToString("n2")%>
+                <%}
+                      else
+                      { %>
+                    <%: Html.ActionLink("เพิ่มราคา","ServiceDetails","Product",new{productId=product.Id},null) %>
+                <%}
+                  }
+                  catch {%>
+                  ไม่มีราคา
+                  <% }%>
+                
+                
+                </td>
             </tr>
          <%} %>
          <% foreach(var productGroup in productRepository.AllProductGroup()){ %>
