@@ -12,9 +12,9 @@
             <div data-role="fieldcontain">
                 <label for="registrationNumber">เลขทะเบียน:</label>
                 <input type="text" name="registrationNumber" id="registrationNumber" value="<%: ViewData["registrationNumber"] %>"/>
-                <label for="carModel">รุ่น:</label>
-                <%= Html.DropDownList("carModel","เลือกรุ่น...", %>
-                <input type="submit" value="ค้นหา" />
+              
+                <%//= Html.DropDownList("carModel","เลือกรุ่น...", %>
+                <input type="submit" value="เพิ่ม" />
             </div>
         <%} %>
     </div>
