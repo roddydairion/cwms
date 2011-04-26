@@ -70,6 +70,7 @@ namespace CWMS.Controllers
             {
                 orderId = repository.InitiateOrder(carId, DateTime.Now, DateTime.Now, ((List<OrderItem>)(Session["cart"])).ToList());
             }
+            Session.Clear();
             return RedirectToAction("Details", new { id = orderId });
         }
         public ActionResult Details(int id)
@@ -78,6 +79,7 @@ namespace CWMS.Controllers
         }
         public ActionResult ShowProductList(int? carId)
         {
+            Session.Clear();
             ViewData["carId"] = carId;
             if (carId.HasValue)
                 ViewData["carRegistrationNumber"] = customerRepository.GetCar(carId.Value).RegistrationNumber;
@@ -113,12 +115,22 @@ namespace CWMS.Controllers
             
             if ((Session["cart"] == null)||(((List<OrderItem>)Session["cart"]).Count ==0))
             {
+                Price price = new Price();
+                if (product.IsService)
+                {
+                    Car car = customerRepository.GetCar(carId.Value);
+                    price = product.CurrentServicePriceEntity(car.CarModelId.Value);
+                }
+                else
+                {
+                    price = product.CurrentPriceEntity;
+                }
                 OrderItem orderItem = new OrderItem
                 {
                     Product = product,
-                    Price = product.CurrentPriceEntity,
+                    Price = price,
                     Quantity = 1,
-                    TotalPrice = product.CurrentPrice * 1
+                    TotalPrice = price.Amount * 1
                 };
                 List<OrderItem> orderItems = new List<OrderItem>();
                 orderItems.Add(orderItem);
@@ -131,8 +143,18 @@ namespace CWMS.Controllers
                     List<OrderItem> orderItems = (List<OrderItem>)Session["cart"];
                     OrderItem orderItem = orderItems.FirstOrDefault(x => x.ProductId == productId);
                     //orderItems.Remove(orderItem);
+                    Price price = new Price();
+                    if (product.IsService)
+                    {
+                        Car car = customerRepository.GetCar(carId.Value);
+                        price = product.CurrentServicePriceEntity(car.CarModelId.Value);
+                    }
+                    else
+                    {
+                        price = product.CurrentPriceEntity;
+                    }
                     orderItem.Quantity += 1;
-                    orderItem.TotalPrice += product.CurrentPrice;
+                    orderItem.TotalPrice += price.Amount;
 
 
                     //orderItems.Add(orderItem);
@@ -142,12 +164,22 @@ namespace CWMS.Controllers
                 else
                 {
                     List<OrderItem> orderItems = (List<OrderItem>)Session["cart"];
+                    Price price = new Price();
+                    if (product.IsService)
+                    {
+                        Car car = customerRepository.GetCar(carId.Value);
+                        price = product.CurrentServicePriceEntity(car.CarModelId.Value);
+                    }
+                    else
+                    {
+                        price = product.CurrentPriceEntity;
+                    }
                     orderItems.Add(new OrderItem
                     {
                         Product = product,
-                        Price = product.CurrentPriceEntity,
+                        Price = price,
                         Quantity = 1,
-                        TotalPrice = product.CurrentPrice
+                        TotalPrice = price.Amount
                     });
                     Session.Remove("cart");
                     Session.Add("cart", orderItems);

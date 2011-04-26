@@ -12,7 +12,7 @@ namespace CWMS.Models
         {
             get
             {
-                return this.Prices.OrderByDescending(x => x.Date).FirstOrDefault();
+                    return this.Prices.OrderByDescending(x => x.Date).FirstOrDefault();
             }
         }
         public decimal CurrentPrice
@@ -29,6 +29,17 @@ namespace CWMS.Models
                 return this.Prices.Where(x => x.CarModelId == carModelId).OrderByDescending(x => x.Date).FirstOrDefault().Amount;
             }
             else
+            {
+                return null;
+            }
+        }
+        public Price CurrentServicePriceEntity(int carModelId)
+        {
+            try
+            {
+                return this.Prices.FirstOrDefault(x => x.CarModelId.Value == carModelId);
+            }
+            catch
             {
                 return null;
             }
