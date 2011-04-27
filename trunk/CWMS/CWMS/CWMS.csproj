@@ -184,6 +184,8 @@
     <Content Include="Scripts\jquery.mobile-1.0a2.js" />
     <Content Include="Scripts\jquery.mobile-1.0a2.min.css" />
     <Content Include="Scripts\jquery.mobile-1.0a2.min.js" />
+    <Content Include="Scripts\jquery.mobile-1.0a4.1.min.css" />
+    <Content Include="Scripts\jquery.mobile-1.0a4.1.min.js" />
     <Content Include="Views\Car\AddCarBrand.aspx" />
     <Content Include="Views\Customer\Details.aspx" />
     <Content Include="Views\Customer\Index.aspx" />
