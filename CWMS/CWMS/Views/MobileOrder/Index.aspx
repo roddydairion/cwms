@@ -10,7 +10,7 @@
             <%if(Session["car"] == null){ %>
             <a href="/MobileOrder/SelectCar" data-theme="b">
             <%}else{ %>
-            <a href="/MobileOrder/ClearCarSession" data-theme="a">
+            <a href="/MobileOrder/SelectCar" data-theme="a">
             <%} %>
                 <%if(Session["car"] == null){ %>
                     ไม่ได้เลือกรถ<br />&nbsp;
@@ -41,30 +41,51 @@
     </div> 
     <br />
 	<div data-role="content">
-    <%if(Session["car"] != null){ %>
-    <ul data-role="listview" data-theme="c" data-filter="true">
+    <ul data-role="listview" data-theme="c">
     <% foreach(CWMS.Models.ProductGroup productGroup in (IEnumerable<CWMS.Models.ProductGroup>)ViewData["allproductgroups"]){ %>
             <li><%: productGroup.Name %>
                 <ul>
-                <%foreach (CWMS.Models.Product product in productGroup.Products){ %>
-                    <li><%= Html.ActionLink(product.Name, "AddItemToShoppingCart", new { productId = product.Id })%><span class="ui-li-count"><%: product.CurrentPrice.ToString("n2") %> บาท</span></li>
-                <%} %>
+                <%foreach (CWMS.Models.Product product in productGroup.Products)
+                  { %>
+                    <%if (product.IsService)
+                      {
+                          if (Session["car"] != null)
+                          {
+                              try
+                              {%>
+                        
+                                <li><%= Html.ActionLink(product.Name, "AddItemToShoppingCart", new { productId = product.Id, carId = ((CWMS.Models.Car)Session["car"]).Id })%><span class="ui-li-count"><%: product.CurrentServicePriceEntity(((CWMS.Models.Car)Session["car"]).CarModelId.Value).Amount.ToString("n2")%> บาท</span></li>
+                            <%}
+                              catch
+                              {%>
+                                <li><%= product.Name%><span class="ui-li-count">ไม่ได้กำหนดราคา</span></li>
+                                
+                            <%}
+                          }
+                      }
+                      else
+                      { %>
+                                    <li><%= Html.ActionLink(product.Name, "AddItemToShoppingCart", new { productId = product.Id})%><span class="ui-li-count"><%: product.CurrentPrice.ToString("n2")%> บาท</span></li>
+
+
+                <%}
+                  }%>
                 </ul>
             <span class="ui-li-count">123</span></li> 
     </ul>
     <%} %>
-    <br /></br/>
-    <%} %>
-    <%if(Session["car"] != null){ %>
+    <%if(Session["car"] != null)
+      { 
+          CWMS.Models.Car car = Session["car"] as CWMS.Models.Car;%>
     <ul data-role="listview" data-theme="c" data-inset="false" data-filter="true">
         
         <%foreach(CWMS.Models.Product service in (IEnumerable<CWMS.Models.Product>)ViewData["allservices"]){ %>
-            <li><%= Html.ActionLink(service.Name, "AddItemToShoppingCart", new { productId = service.Id })%>
+            <li><%= Html.ActionLink(service.Name, "AddItemToShoppingCart", new { productId = service.Id, carId= car.Id })%>
             <span class="ui-li-count">
             <%//if (service.CurrentServicePrice(((CWMS.Models.Car)Session["car"]).CarModelId.Value).HasValue)
               
               try            {%>
-                <%: service.CurrentPrice.ToString("n2")%> บาท
+                <%: service.CurrentServicePriceEntity(car.CarModelId.Value).Amount.ToString("n2")%> บาท
                 <%}
               catch
               { %>
@@ -85,13 +106,14 @@
     <br /><br />
       <%} %>
     <ul data-role="listview" data-theme="c" data-inset="false" data-filter="true">
-        <%foreach(CWMS.Models.Product product in (IEnumerable<CWMS.Models.Product>)ViewData["allproducts"]){ %>
-            <li><%= Html.ActionLink(product.Name, "AddItemToShoppingCart", new { productId = product.Id })%><span class="ui-li-count"><%: product.CurrentPrice.ToString("n2") %> บาท</span></li>
+        <%
+        foreach(CWMS.Models.Product product in (IEnumerable<CWMS.Models.Product>)ViewData["allproducts"]){ %>
+            <li><%= Html.ActionLink(product.Name, "AddItemToShoppingCart", new { productId = product.Id, })%><span class="ui-li-count"><%: product.CurrentPrice.ToString("n2") %> บาท</span></li>
         <%} %>
     </ul>
     </div>
     <br />
 	<div data-role="footer">
-         <h4><%= Html.ActionLink("Mr. Kleane Ordering System", "ClearSessions")%></h4>
+         <h4><%= Html.ActionLink("Mr. Kleane Ordering System", "ClearSessions")%> [ <a href="javascript:location.reload(true);">Refresh</a> ]</h4>
     </div> 
 </asp:Content>

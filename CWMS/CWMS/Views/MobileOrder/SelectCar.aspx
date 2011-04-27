@@ -18,6 +18,6 @@
     </div>
     <br />
 	<div data-role="footer">
-         <h4>Mr. Kleane Ordering System</h4>
+         <h4>Mr. Kleane Ordering System [ <%= Html.ActionLink("ไม่เลือกรถ", "ClearSessions") %> ]</h4>
     </div> 
 </asp:Content>
