@@ -169,6 +169,41 @@
     <Content Include="Content\img\image.jpg" />
     <Content Include="Content\img\image_author.jpg" />
     <Content Include="Global.asax" />
+    <Content Include="resource\images\back.png" />
+    <Content Include="resource\images\box-bottom-left.png" />
+    <Content Include="resource\images\box-bottom-right.png" />
+    <Content Include="resource\images\box-top-left.png" />
+    <Content Include="resource\images\box-top-right.png" />
+    <Content Include="resource\images\branding-background.png" />
+    <Content Include="resource\images\button.png" />
+    <Content Include="resource\images\footer.png" />
+    <Content Include="resource\images\form-input-shadow.png" />
+    <Content Include="resource\images\global-hover.png" />
+    <Content Include="resource\images\header-gradient.png" />
+    <Content Include="resource\images\header-shadow.png" />
+    <Content Include="resource\images\home.png" />
+    <Content Include="resource\images\icon-link-email.png" />
+    <Content Include="resource\images\icon-link-external.png" />
+    <Content Include="resource\images\icon-link-ical.png" />
+    <Content Include="resource\images\icon-link-sms.png" />
+    <Content Include="resource\images\icon-link-tel.png" />
+    <Content Include="resource\images\img-40x40.png" />
+    <Content Include="resource\images\img-grid.png" />
+    <Content Include="resource\images\logo.png" />
+    <Content Include="resource\images\next.png" />
+    <Content Include="resource\images\open.png" />
+    <Content Include="resource\images\quote.png" />
+    <Content Include="resource\images\sprite-expand-collapse.png" />
+    <Content Include="resource\images\sprite-rating.png" />
+    <Content Include="resource\images\toggle-button.png" />
+    <Content Include="resource\images\toggle-off.png" />
+    <Content Include="resource\images\toggle-on.png" />
+    <Content Include="resource\images\top.png" />
+    <Content Include="resource\images\vertical-divider.png" />
+    <Content Include="resource\scripts\templates.js" />
+    <Content Include="resource\styles\baseStyles.css" />
+    <Content Include="resource\styles\tweaks\maemo.css" />
+    <Content Include="resource\styles\tweaks\S40webkit.css" />
     <Content Include="Scripts\images\ajax-loader.png" />
     <Content Include="Scripts\images\form-check-off.png" />
     <Content Include="Scripts\images\form-check-on.png" />
@@ -258,6 +293,9 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="Views\Shared\Mobile.Master" />
+    <None Include="resource\styles\sass\baseStyles.scss" />
+    <None Include="resource\styles\sass\sass.sh" />
+    <None Include="resource\styles\sass\_include.scss" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
