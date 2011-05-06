@@ -25,6 +25,10 @@
         
         </asp:ContentPlaceHolder>
     </div>
+    <footer class="group">
+                 <p><center>&copy; 2011 Mr. Kleane Ordering System</center></p>
+
+    </footer>
 </div>
 </body>
 </html>
