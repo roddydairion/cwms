@@ -10,7 +10,7 @@ namespace CWMS.Controllers
     {
         ProductRepository repository = new ProductRepository();
         CustomerRepository customerRepository = new CustomerRepository();
-        
+        CWMSDataClassesDataContext db = new CWMSDataClassesDataContext();
         public ActionResult AddServicePrices(int productId)
         {
             ViewData["carBrands"] = customerRepository.AllCarBrands();
@@ -68,6 +68,8 @@ namespace CWMS.Controllers
         }
         public ActionResult ProductList()
         {
+            if(!db.DatabaseExists())
+                db.CreateDatabase();
             ViewData["allUngroupedProducts"] = repository.AllProducts().Where(x => !x.ProductGroupId.HasValue);
             return View(repository.AllProductGroup());
         }

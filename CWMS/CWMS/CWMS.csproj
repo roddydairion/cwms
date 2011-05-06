@@ -228,13 +228,16 @@
     <Content Include="Views\MobileOrder\Index.aspx" />
     <Content Include="Views\MobileOrder\OrderConfirmation.aspx" />
     <Content Include="Views\MobileOrder\SelectCar.aspx" />
+    <Content Include="Views\Order\AddGiftCard.aspx" />
     <Content Include="Views\Order\AllFinishedOrdersList.aspx" />
     <Content Include="Views\Order\AllOrderListPrint.aspx" />
     <Content Include="Views\Order\AllOrdersList.aspx" />
     <Content Include="Views\Order\AllUnfinishedOrdersList.aspx" />
     <Content Include="Views\Order\Details.aspx" />
+    <Content Include="Views\Order\GiftCardDetails.aspx" />
     <Content Include="Views\Order\InitiateOrder.aspx" />
     <Content Include="Views\Order\JobPrint.aspx" />
+    <Content Include="Views\Order\SearchGiftCard.aspx" />
     <Content Include="Views\Order\_AllServices.ascx" />
     <Content Include="Views\Order\_ProductList.ascx" />
     <Content Include="Views\Product\AddServicePrices.aspx" />

@@ -134,6 +134,8 @@
               <li><%= Html.ActionLink("จัดการกลุ่มสินค้าและบริการ","ListProductGroup","Product") %></li>
               <li><%= Html.ActionLink("เพิ่มส่วนประกอบ", "AddComponent", "Product")%></li>
               <li><%= Html.ActionLink("จัดการผู้ป้อนสินค้า","AddSupplier","Stock") %></li>
+              <li><%= Html.ActionLink("คูปองล้างรถ","SearchGiftCard","Order") %></li>
+
             </ul>
           <!--[if lte IE 6]></td></tr></table></a><![endif]-->
         </li>
