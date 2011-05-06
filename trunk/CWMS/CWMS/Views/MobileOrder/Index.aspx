@@ -37,18 +37,25 @@
             <li><a href="/MobileOrder/OrderConfirmation"><span style="font-size: 24px;">สั่งสินค้า</span></a></li>
 		</ul>
         </nav>
-    <br />
 
 
    
     <%if(Session["car"] != null)
       { 
           CWMS.Models.Car car = Session["car"] as CWMS.Models.Car;%>
-    <ul>
+          <h2>รายการบริการ [
+          <%try{ %>
+          <%: car.CarModel.CarBrand + ": " + car.CarModel.CarBrand.Name %>
+          <%}catch{ %>
+            ยังไม่ได้ใส่รุ่นรถ
+          <%} %>
+          ]</h2>
+    <nav>
+    <ul class="list group">
         
         <%foreach(CWMS.Models.Product service in (IEnumerable<CWMS.Models.Product>)ViewData["allservices"]){ %>
-            <li><%= Html.ActionLink(service.Name, "AddItemToShoppingCart", new { productId = service.Id, carId= car.Id })%>
-            <span class="ui-li-count">
+            <li class="group"><%= Html.ActionLink(service.Name, "AddItemToShoppingCart", new { productId = service.Id, carId= car.Id })%>
+            <span>
             <%//if (service.CurrentServicePrice(((CWMS.Models.Car)Session["car"]).CarModelId.Value).HasValue)
               
               try            {%>
@@ -62,6 +69,7 @@
             </span></li>
         <%} %>
     </ul>
+    </nav>
     <br />
     <%}else
       { %>
