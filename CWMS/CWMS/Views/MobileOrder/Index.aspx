@@ -1,10 +1,9 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Mobile.Master" Inherits="System.Web.Mvc.ViewPage<dynamic>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <div data-role="header">
-        <h1>สั่งสินค้า</h1>
-        <div data-role="navbar">
-		<ul >
+    <h1 class="top-aligned">สั่งสินค้า</h1>
+        <nav class="horizontal">
+		    <ul class="three-piece">
 			<li>
             
             <%if(Session["car"] == null){ %>
@@ -37,9 +36,10 @@
             
             <li><a href="/MobileOrder/OrderConfirmation" data-theme="e" ><span style="font-size: 24px;">สั่งสินค้า</span></a></li>
 		</ul>
-	</div>
-    </div> 
+        </nav>
     <br />
+
+
 	<div data-role="content">
     <ul data-role="listview" data-theme="c">
     <% foreach(CWMS.Models.ProductGroup productGroup in (IEnumerable<CWMS.Models.ProductGroup>)ViewData["allproductgroups"]){ %>
