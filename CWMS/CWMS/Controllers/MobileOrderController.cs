@@ -30,17 +30,30 @@ namespace CWMS.Controllers
             }
             else
             {
-                db.Cars.InsertOnSubmit(new Car
-                {
-                    RegistrationNumber = registrationNumber
-                });
-                db.SubmitChanges();
-                customerRepository = new CustomerRepository();
-                Car car = customerRepository.GetCar(registrationNumber);
-                Session.Remove("car");
-                Session.Add("car", car);
-                return RedirectToAction("Index");
+                ViewData["registrationNumber"] = registrationNumber;
+                return View("SelectCarBrand");
             }
+        }
+
+        public ActionResult AddNewCar(string re, int carModelId)
+        {
+            Car newCar = new Car
+            {
+                CarModelId = carModelId,
+                RegistrationNumber = re.Trim()
+            };
+            db.Cars.InsertOnSubmit(newCar);
+            db.SubmitChanges();
+            Session.Remove("car");
+            Session.Add("car", newCar);
+            return RedirectToAction("Index");
+                
+        }
+        public ActionResult SelectCarModel(string re, int carBrandId)
+        {
+            ViewData["registrationNumber"] = re;
+            ViewData["carBrand"] = db.CarBrands.FirstOrDefault(x => x.Id == carBrandId);
+            return View("SelectCarModel", ((CarBrand)ViewData["carBrand"]).CarModels);
         }
         public ActionResult ClearSessions()
         {

@@ -2,22 +2,16 @@
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <div data-role="header">
-        <h1>ค้นหารถ</h1>
+    
+        <h1 class="top-aligned">ค้นหารถ</h1>
         
-    </div> 
-    <br />
-	<div data-role="content">
+	<div class="box-flat">
         <%using(Html.BeginForm()) {%>
-            <div data-role="fieldcontain">
                 <label for="search">ค้นหาทะเบียน:</label>
-                <input type="search" name="registrationNumber" id="registrationNumber" />
+                <input type="text" name="registrationNumber" id="registrationNumber" />
                 <input type="submit" value="ค้นหา" />
-            </div>
+
         <%} %>
     </div>
     <br />
-	<div data-role="footer">
-         <h4>Mr. Kleane Ordering System [ <%= Html.ActionLink("ไม่เลือกรถ", "ClearSessions") %> ]</h4>
-    </div> 
 </asp:Content>
