@@ -22,13 +22,20 @@
             
             </p>
         <p><label class="left">รายละเอียดรถ:</label>
-            <%= Html.TextBox("details",Model.CarModel.CarBrand.Name + ": " + Model.CarModel.Name, new { @class = "field", @readonly = "true"})%>
-            <%= Ajax.ActionLink("เลือกรถคันนี้", "ShowProductList","Order", new { carId = Model.Id }, new AjaxOptions
+            <%= Html.TextBox("details",Model.CarModel.CarBrand.Name + ": " + Model.CarModel.Name, new { @class = "field", @readonly = "true"})%></p>
+            <p>
+            [ <%= Ajax.ActionLink("เลือกรถคันนี้", "ShowProductList","Order", new { carId = Model.Id }, new AjaxOptions
                 {
                     UpdateTargetId = "productlist",
                     HttpMethod = "Get",
                     LoadingElementId = "indicator"
-                },null)%>
+                },null)%> ] 
+
+                [ <%= Html.ActionLink("ซื้อคูปองล้างรถ", "AddGiftCard","Order", new { carId = Model.Id },null) %> ]
+                <%if(Model.GiftCards.Any(x=>x.CurrentQuantity > 0)){
+                      CWMS.Models.GiftCard giftCard = Model.GiftCards.FirstOrDefault(x => x.CurrentQuantity > 0);%>
+                    [ <%: Html.ActionLink("ใช้คูปองหมายเลข : " + giftCard.Number.Trim(), "GiftCardDetails", "Order", new { id = giftCard.Id }, null) %> ]
+                <%} %>
             </p>
          <% if(!Model.CustomerId.HasValue) { %>
             <p><input type="submit" name="submit" id="submit_1" class="button" value="บันทึกข้อมูลลูกค้า" tabindex="6" /></p>

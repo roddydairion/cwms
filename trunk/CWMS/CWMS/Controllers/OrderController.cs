@@ -12,6 +12,47 @@ namespace CWMS.Controllers
         OrderRepository repository = new OrderRepository();
         CustomerRepository customerRepository = new CustomerRepository();
         ProductRepository productRepository = new ProductRepository();
+        CWMSDataClassesDataContext db = new CWMSDataClassesDataContext();
+        public ActionResult GiftCardDetails(int id)
+        {
+            return View(db.GiftCards.FirstOrDefault(x => x.Id == id));
+        }
+        public ActionResult SearchGiftCard(string number)
+        {
+            if (string.IsNullOrEmpty(number))
+            {
+                return View(db.GiftCards);
+            }
+            else
+            {
+                return View(db.GiftCards.Where(x=>x.Number.Trim() == number.Trim()));
+            }
+        }
+        public ActionResult UseGiftCard(int id)
+        {
+            GiftCard giftCard = db.GiftCards.FirstOrDefault(x => x.Id == id);
+            giftCard.GiftCardUsages.Add(new GiftCardUsage
+            {
+                Date = DateTime.Now
+            });
+            giftCard.CurrentQuantity = giftCard.CurrentQuantity - 1;
+            db.SubmitChanges();
+            return RedirectToAction("GiftCardDetails", new { id = id });
+        }
+        [HttpPost]
+        public ActionResult AddGiftCard(GiftCard giftcard)
+        {
+            giftcard.CurrentQuantity = giftcard.OriginalQuantity;
+            db.GiftCards.InsertOnSubmit(giftcard);
+            db.SubmitChanges();
+            return RedirectToAction("SearchGiftCard", new { number = giftcard.Number });
+        }
+        public ActionResult AddGiftCard(int carId)
+        {
+            ViewData["car"] = customerRepository.GetCar(carId);
+            ViewData["carId"] = carId;
+            return View();
+        }
         public ActionResult AllOrderListPrint(string startDate, string endDate)
         {
             DateTime start = DateTime.Parse(startDate,System.Globalization.CultureInfo.GetCultureInfo("th-TH"));

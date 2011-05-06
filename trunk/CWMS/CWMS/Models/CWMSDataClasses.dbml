@@ -112,6 +112,7 @@
       <Column Name="RegistrationNumber" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="CarModelId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Car_Order" Member="Orders" ThisKey="Id" OtherKey="CarId" Type="Order" />
+      <Association Name="Car_GiftCard" Member="GiftCards" ThisKey="Id" OtherKey="CarId" Type="GiftCard" />
       <Association Name="Customer_Car" Member="Customer" ThisKey="CustomerId" OtherKey="Id" Type="Customer" IsForeignKey="true" />
       <Association Name="CarModel_Car" Member="CarModel" ThisKey="CarModelId" OtherKey="Id" Type="CarModel" IsForeignKey="true" />
     </Type>
@@ -193,6 +194,26 @@
       <Association Name="Order_OrderItem" Member="OrderItems" ThisKey="Id" OtherKey="OrderId" Type="OrderItem" />
       <Association Name="Car_Order" Member="Car" ThisKey="CarId" OtherKey="Id" Type="Car" IsForeignKey="true" />
       <Association Name="Employee_Order" Member="Employee" ThisKey="EmployeeId" OtherKey="Id" Type="Employee" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.GiftCard" Member="GiftCards">
+    <Type Name="GiftCard">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Number" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="OriginalQuantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CurrentQuantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CarId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Association Name="GiftCard_GiftCardUsage" Member="GiftCardUsages" ThisKey="Id" OtherKey="GiftCardId" Type="GiftCardUsage" />
+      <Association Name="Car_GiftCard" Member="Car" ThisKey="CarId" OtherKey="Id" Type="Car" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.GiftCardUsage" Member="GiftCardUsages">
+    <Type Name="GiftCardUsage">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="GiftCardId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="GiftCard_GiftCardUsage" Member="GiftCard" ThisKey="GiftCardId" OtherKey="Id" Type="GiftCard" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
