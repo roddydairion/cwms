@@ -83,7 +83,9 @@ namespace CWMS.Controllers
             }
         }
         public ActionResult AllUnfinishedOrdersList() { return View(repository.AllUnfinishedOrders()); }
-        public ActionResult AllFinishedOrdersList() { return View(repository.AllFinishedOrders()); }
+        public ActionResult AllFinishedOrdersList() {
+            ViewData["giftCards"] = db.GiftCardUsages;
+            return View(repository.AllFinishedOrders()); }
         public ActionResult FinishOrder(int orderId, decimal paid)
         {
             Order order = repository.Get(orderId);

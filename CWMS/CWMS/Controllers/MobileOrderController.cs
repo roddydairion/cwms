@@ -31,7 +31,7 @@ namespace CWMS.Controllers
             else
             {
                 ViewData["registrationNumber"] = registrationNumber;
-                return View("SelectCarBrand");
+                return View("SelectCarBrand",db.CarBrands);
             }
         }
 

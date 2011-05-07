@@ -2,47 +2,42 @@
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <div data-role="header">
-        <h1>ยืนยันการสั่งซื้อ</h1>
-        <div data-role="navbar">
-		<ul >
-            <li><a href="#" data-theme="b">
+ 
+        <h1 class="top-aligned">ยืนยันการสั่งซื้อ</h1>
+        <nav class="horizontal">
+		<ul class="two-piece" >
+            <li>
             <%if (ViewData["car"] == null)
               {%>
-                ลูกค้าเงินสด<br />&nbsp;
+                ลูกค้าเงินสด&nbsp;
             <%}
               else
               {
                   CWMS.Models.Car car = (CWMS.Models.Car)ViewData["car"];%>
                   <%try{ %>
-                  <%: car.Customer.Name %>
+                  [ <%: car.Customer.Name %> ]
                   <%}catch{ %>
-                  ไม่พบชื่อลูกค้า
+                  [ ไม่พบชื่อลูกค้า ]
                   <%} %>
-                <br />
                 <%try
                   { %>
-                <%: car.CarModel.CarBrand + ": " + car.RegistrationNumber%> บาท
+                <%: car.CarModel.CarBrand.Name + "-" + car.CarModel.Name+ "-" + car.RegistrationNumber%>
                 <%}
                   catch { } %>
             <%} %>
-            </a></li>
+            </li>
             
-            <li><a href="/MobileOrder/FinishOrder" data-theme="e" ><span style="font-size: 24px;">ยืนยันการซื้อ</span></a></li>
+            <li><a href="/MobileOrder/FinishOrder"><span style="font-size: 24px;">ยืนยันการซื้อ</span></a></li>
 		</ul>
-	</div>
-    </div> 
+        </nav>
+ 
     <br />
-	<div data-role="content">
-    <ul data-role="listview" data-theme="c" data-inset="false" data-filter="false">
+    <table>
+    <tbody>
         <%foreach(CWMS.Models.OrderItem orderItem in Model){ %>
-            <li><%= Html.ActionLink(orderItem.Product.Name, "#")%><span class="ui-li-count"><%: orderItem.TotalPrice.ToString("n2") %> บาท</span></li>
+            <tr><th scope="row"><%:orderItem.Product.Name %> (<%: orderItem.Quantity.ToString() %>)</th><td align="right"><%: orderItem.TotalPrice.ToString("n2") %> บาท</td></tr>
         <%} %>
-            <li><a href="#">รวม: <%= Model.Sum(x=>x.TotalPrice).ToString("n2") %> บาท</a></li>
-    </ul>
-    </div>
-    <br />
-	<div data-role="footer">
-         <h4>Mr. Kleane Ordering System</h4>
-    </div> 
+            <tr><th scope="row">รวม</th><th scope="row" align="right"><%: Model.Sum(x=>x.TotalPrice).ToString("n2") %> บาท</th></tr>
+    </tbody>
+    </table>
 </asp:Content>
