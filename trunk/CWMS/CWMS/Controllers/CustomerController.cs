@@ -10,7 +10,7 @@ namespace CWMS.Controllers
     {
         CustomerRepository repository = new CustomerRepository();
         ProductRepository productRepository = new ProductRepository();
-
+        CWMSDataClassesDataContext db = new CWMSDataClassesDataContext();
         public ActionResult EditCar(int id,FormCollection formValues)
         {
             Car car = repository.GetCar(id);
@@ -95,9 +95,18 @@ namespace CWMS.Controllers
             ViewData["allCarBrands"] = repository.AllCarBrands();
             return RedirectToAction("Details", new { id = Id });
         }
+
+        public ActionResult AddCarToCustomer(int carId, int customerId)
+        {
+            Car car = db.Cars.FirstOrDefault(x => x.Id == carId);
+            car.CustomerId = customerId;
+            db.SubmitChanges();
+            return RedirectToAction("Details", new { id = customerId });
+        }
         public ActionResult Details(int id)
         {
             ViewData["allCarBrands"] = repository.AllCarBrands();
+            ViewData["nullCustomerCars"] = db.Cars.Where(x => !x.CustomerId.HasValue);
             return View(repository.GetCustomer(id));
         }
         public ActionResult Search(string s)
@@ -108,6 +117,7 @@ namespace CWMS.Controllers
         }
         public ActionResult Index()
         {
+            ViewData["nullCustomerCars"] = db.Cars.Where(x => !x.CustomerId.HasValue);
             ViewData["allProductGroups"] = productRepository.AllProductGroup();
             ViewData["allUngroupProducts"] = productRepository.AllProducts().Where(x => !x.ProductGroupId.HasValue);
             
