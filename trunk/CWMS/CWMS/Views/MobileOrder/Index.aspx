@@ -16,7 +16,7 @@
                 <%} else{
                       CWMS.Models.Car car = (CWMS.Models.Car)Session["car"];%>
                       <%try
-                        { %><%: car.Customer.Name%><%}
+                        { %>[ <%: car.Customer.Name%>] <%}
                         catch { } %><%:car.RegistrationNumber %>
                 <%} %>
                 </a>
@@ -28,7 +28,7 @@
             <%}
               else
               {%>
-                สินค้า: <%= ((List<CWMS.Models.OrderItem>)Session["cart"]).Count.ToString() %> รายการ 
+                สินค้า: <%= ((List<CWMS.Models.OrderItem>)Session["cart"]).Sum(x=>x.Quantity).ToString() %> รายการ 
                 
                 <%= ((List<CWMS.Models.OrderItem>)Session["cart"]).Sum(x=>x.TotalPrice).ToString("N2") %> บาท
             <%} %>
@@ -45,7 +45,7 @@
           CWMS.Models.Car car = Session["car"] as CWMS.Models.Car;%>
           <h2>รายการบริการ [
           <%try{ %>
-          <%: car.CarModel.CarBrand + ": " + car.CarModel.CarBrand.Name %>
+          <%: car.CarModel.CarBrand.Name + ": " + car.CarModel.Name %>
           <%}catch{ %>
             ยังไม่ได้ใส่รุ่นรถ
           <%} %>

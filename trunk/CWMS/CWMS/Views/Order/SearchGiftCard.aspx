@@ -6,25 +6,30 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>SearchGiftCard</h2>
-
+    <h2>ค้นหาคูปอง</h2>
+    <% using(Html.BeginForm("SearchGiftCard","Order",FormMethod.Get)){%>
+        เลขที่: <%: Html.TextBox("number") %>
+        <p>
+            <input type="submit" value="ค้นหา" />
+        </p>
+    <%} %>
     <table>
         <tr>
             <th></th>
             <th>
-                Number
+                หมายเลข
             </th>
             <th>
-                OriginalQuantity
+                จำนวนเริ่มต้น
             </th>
             <th>
-                CurrentQuantity
+                จำนวนคงเหลือ (ครั้ง)
             </th>
             <th>
-                CarId
+                รถ
             </th>
             <th>
-                Price
+                ราคา
             </th>
         </tr>
 
@@ -44,7 +49,7 @@
                 <%: item.CurrentQuantity %>
             </td>
             <td>
-                <%: item.CarId %>
+                <%: item.Car.RegistrationNumber %>
             </td>
             <td>
                 <%: String.Format("{0:F}", item.Price) %>
