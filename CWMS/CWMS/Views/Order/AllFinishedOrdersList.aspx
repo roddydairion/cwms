@@ -18,8 +18,15 @@
               <tr>
                     <th scope="row"><%= Html.ActionLink("#"+item.Id.ToString().PadLeft(8,'0'),"Details",new {id= item.Id}) %></th>
                     <td>
-                        <%if(item.CarId.HasValue){ %>
-                            <%: item.Car.Customer.Name %> - <%: item.Car.RegistrationNumber %>
+                       <%if(item.CarId.HasValue){ %>
+                            <%try{ %>
+                            <%: item.Car.Customer.Name %>
+                            <%}catch{ %>
+                                
+                            <%} %>
+                             - 
+                            
+                            <%: item.Car.RegistrationNumber %>
                         <%}else {%>
                             -
                         <%} %>

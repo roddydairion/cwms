@@ -60,6 +60,25 @@
             <%} %>
           </table>  
           
+          <table>
+            <tr><th class="top" colspan="2">รายการรถที่ยังไม่ได้เพิ่มข้อมูลลูกค้า</th></tr>
+            <%foreach (var item in ViewData["nullCustomerCars"] as IEnumerable<CWMS.Models.Car>)
+              { %>
+                <tr><td>
+                <%try
+                  { %>
+                <%: Html.ActionLink(item.RegistrationNumber, "Details", new { id = item.Id })%>
+                <%}
+                  catch { } %>
+                
+                </td>
+                <td style="width: 200px;">
+                <%: item.CarModel.CarBrand.Name %>: <%: item.CarModel.Name %>
+                </td>
+                </tr>
+            <%} %>
+          </table>  
+
           <div class="contactform">
             <% using (Html.BeginForm("Search","Customer")){ %>
               <fieldset><legend>&nbsp;ค้นหาลูกค้า&nbsp;</legend>

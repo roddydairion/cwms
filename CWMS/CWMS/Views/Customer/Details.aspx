@@ -109,7 +109,24 @@
                 <p><input type="submit" name="submit" id="submit1" class="button" value="ค้นหา" tabindex="6" /></p>
               </fieldset>
             <%} %>
-          </div>            
+          </div>       
+          <div class="contactform">
+            <% using (Html.BeginForm("AddCar2","Customer")){ %>
+              <fieldset><legend>&nbsp;เพิ่มจากรายการรถที่ยังไม่มีเจ้าของ&nbsp;</legend>
+              <%= Html.Hidden("customerId",Model.Id) %>
+               <table>
+               <%foreach(var item in ViewData["nullCustomerCars"] as IEnumerable<CWMS.Models.Car>){ %>
+                <tr>
+                    <td><%:item.RegistrationNumber %></td>
+                    <td><%: item.CarModel.CarBrand.Name + ": " + item.CarModel.Name %></td>
+                    <td><%: Html.ActionLink("เพิ่มรถ", "AddCarToCustomer", new { carId = item.Id, customerId = Model.Id }) %></td>
+                </tr>
+               <%} %>
+               </table>
+                </fieldset>
+            <%} %>
+          </div>      
+               
         </div> 
         <div class="corner-content-1col-bottom"></div>
 

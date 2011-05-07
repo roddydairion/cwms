@@ -36,12 +36,18 @@
                       CWMS.Models.GiftCard giftCard = Model.GiftCards.FirstOrDefault(x => x.CurrentQuantity > 0);%>
                     [ <%: Html.ActionLink("ใช้คูปองหมายเลข : " + giftCard.Number.Trim(), "GiftCardDetails", "Order", new { id = giftCard.Id }, null) %> ]
                 <%} %>
+                
             </p>
          <% if(!Model.CustomerId.HasValue) { %>
             <p><input type="submit" name="submit" id="submit_1" class="button" value="บันทึกข้อมูลลูกค้า" tabindex="6" /></p>
         <%}%>
     </fieldset>
 <%  } %>
+<%using(Html.BeginForm("SearchGiftCard","Order",FormMethod.Get)){ %>
+                    <%: Html.Hidden("carId", Model.Id) %>
+                    ใช้คูปอง: <%: Html.TextBox("number") %>
+                    <input type="submit" value="ค้นหา" />
+                <%} %>
 <%}
    else if (ViewData["carBrandId"] == null)
    { %>

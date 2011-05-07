@@ -13,27 +13,49 @@ namespace CWMS.Controllers
         CustomerRepository customerRepository = new CustomerRepository();
         ProductRepository productRepository = new ProductRepository();
         CWMSDataClassesDataContext db = new CWMSDataClassesDataContext();
-        public ActionResult GiftCardDetails(int id)
+        public ActionResult GiftCardDetails(int id,int? carId)
         {
-            return View(db.GiftCards.FirstOrDefault(x => x.Id == id));
+            GiftCard giftCard = db.GiftCards.FirstOrDefault(x => x.Id == id);
+            Car car = giftCard.Car;
+            if (carId.HasValue)
+                car = db.Cars.FirstOrDefault(x => x.Id == carId);
+
+            ViewData["car"] = car;
+            return View(giftCard);
         }
-        public ActionResult SearchGiftCard(string number)
+        public ActionResult SearchGiftCard(string number,int? carId)
         {
-            if (string.IsNullOrEmpty(number))
+            if (carId.HasValue)
             {
-                return View(db.GiftCards);
+                GiftCard giftCard = db.GiftCards.FirstOrDefault(x => x.Number.Trim() == number.Trim());
+                if (giftCard != null)
+                {
+                    return RedirectToAction("GiftCardDetails", new { id = giftCard.Id, carId = carId.Value });
+                }
+                else
+                {
+                    return RedirectToAction("InitiateOrder");
+                }
             }
             else
             {
-                return View(db.GiftCards.Where(x=>x.Number.Trim() == number.Trim()));
+                if (string.IsNullOrEmpty(number))
+                {
+                    return View(db.GiftCards);
+                }
+                else
+                {
+                    return View(db.GiftCards.Where(x => x.Number.Trim() == number.Trim()));
+                }
             }
         }
-        public ActionResult UseGiftCard(int id)
+        public ActionResult UseGiftCard(int id,int carId)
         {
             GiftCard giftCard = db.GiftCards.FirstOrDefault(x => x.Id == id);
             giftCard.GiftCardUsages.Add(new GiftCardUsage
             {
-                Date = DateTime.Now
+                Date = DateTime.Now,
+                CarId = carId
             });
             giftCard.CurrentQuantity = giftCard.CurrentQuantity - 1;
             db.SubmitChanges();
