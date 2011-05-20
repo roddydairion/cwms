@@ -14,10 +14,11 @@
               else
               {
                   CWMS.Models.Car car = (CWMS.Models.Car)ViewData["car"];%>
-                  <%try{ %>
-                  [ <%: car.Customer.Name %> ]
-                  <%}catch{ %>
-                  [ ไม่พบชื่อลูกค้า ]
+                  <%if(car.CustomerId.HasValue)
+                    { %>
+                        [ <%: car.Customer.Name %> ]
+                  <%}else{ %>
+                        [ ไม่ระบุเจ้าของ ]
                   <%} %>
                 <%try
                   { %>

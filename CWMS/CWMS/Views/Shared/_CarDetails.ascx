@@ -41,13 +41,19 @@
          <% if(!Model.CustomerId.HasValue) { %>
             <p><input type="submit" name="submit" id="submit_1" class="button" value="บันทึกข้อมูลลูกค้า" tabindex="6" /></p>
         <%}%>
-    </fieldset>
-<%  } %>
-<%using(Html.BeginForm("SearchGiftCard","Order",FormMethod.Get)){ %>
+   <%} %>
+    <%using(Html.BeginForm("SearchGiftCard","Order",FormMethod.Get))
+      { %>
                     <%: Html.Hidden("carId", Model.Id) %>
-                    ใช้คูปอง: <%: Html.TextBox("number") %>
-                    <input type="submit" value="ค้นหา" />
+                    <p>
+                    <label class="left">ใช้คูปองหมายเลข:</label> <%: Html.TextBox("number", "", new { @class = "field" })%>
+                    </p>
+                    <p>
+                    <input type="submit" value="ค้นหา" class="button"/>
+                    </p>    
                 <%} %>
+        </fieldset>
+
 <%}
    else if (ViewData["carBrandId"] == null)
    { %>

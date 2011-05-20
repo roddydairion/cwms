@@ -5,14 +5,23 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+<div class="corner-content-1col-top"></div>                        
+<div class="content-1col-nobox">
+    <h1 class="contact">คูปองทั้งหมด</h1>
+    <div class="contactform">
+        <fieldset>
+        <legend>ค้นหา</legend>
+        <% using(Html.BeginForm("SearchGiftCard","Order",FormMethod.Get)){%>
+            <p><label for="contact_firstname_1" class="left">เลขที่:</label>
+                <%: Html.TextBox("number", "", new { @class = "field" })%>
+                </p>
 
-    <h2>ค้นหาคูปอง</h2>
-    <% using(Html.BeginForm("SearchGiftCard","Order",FormMethod.Get)){%>
-        เลขที่: <%: Html.TextBox("number") %>
-        <p>
-            <input type="submit" value="ค้นหา" />
-        </p>
-    <%} %>
+                <p>
+                <input type="submit" value="ค้นหา" class="button"/>
+            </p>
+            
+        <%} %>
+        </fieldset>
     <table>
         <tr>
             <th></th>
@@ -59,7 +68,10 @@
     <% } %>
 
     </table>
-
+    <br />
+    </div>
+</div>    
+<div class="corner-content-1col-bottom"></div>
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="SideBar" runat="server">
