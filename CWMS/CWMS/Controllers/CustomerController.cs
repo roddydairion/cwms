@@ -54,14 +54,21 @@ namespace CWMS.Controllers
         {
             Customer customer = repository.GetCustomer(customerName);
             int carId;
-            if (customer != null)
+            if (customer != null&&!string.IsNullOrEmpty(customerName))
             {
                 carId = repository.AddCar(registrationNumber, customer.Id,carModelId);
             }
             else
             {
-                int customerId = repository.AddCustomer(customerName, "", "", "");
-                carId = repository.AddCar(registrationNumber, customerId,carModelId);
+                if (!string.IsNullOrEmpty(customerName))
+                {
+                    int customerId = repository.AddCustomer(customerName, "", "", "");
+                    carId = repository.AddCar(registrationNumber, customerId, carModelId);
+                }
+                else
+                {
+                    carId = repository.AddCar(registrationNumber,null, carModelId);
+                }
             }
             return PartialView("_CarDetails", repository.GetCar(carId));
 
