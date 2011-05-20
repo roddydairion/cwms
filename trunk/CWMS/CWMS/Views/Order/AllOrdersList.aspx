@@ -5,7 +5,8 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-<% CWMS.Views.Helper helper = new CWMS.Views.Helper(); %>
+<% CWMS.Views.Helper helper = new CWMS.Views.Helper();
+   CWMS.Models.CWMSDataClassesDataContext db = new CWMS.Models.CWMSDataClassesDataContext();%>
     <a id="anchor-table-1"></a>
         <div class="corner-content-1col-top"></div>                        
         <div class="content-1col-nobox">
@@ -91,7 +92,12 @@
                 <tr><th class="top" scope="col" colspan="4">ชำระแล้ว</th><th class="top" scope="col" colspan="2"><%: Model.Where(x=>x.Paid.HasValue).Sum(x=>x.Paid) %></th></tr>
                 <tr><th class="top" scope="col" colspan="4">ยังไม่ได้ชำระ</th><th class="top" scope="col" colspan="2"><%: totalPrice- Model.Where(x=>x.Paid.HasValue).Sum(x=>x.Paid) %></th></tr>
             </table>
-            
+            <br />
+            <table>
+                <tr>
+                    
+                </tr>
+            </table>
         </div> 
         <div class="corner-content-1col-bottom"></div> 
 </asp:Content>

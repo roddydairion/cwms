@@ -5,51 +5,44 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-
-    <h2>ซื้อคูปอง</h2>
+<div class="corner-content-1col-top"></div>                        
+    <div class="content-1col-nobox">
+    <h1 class="contact">ซื้อคูปอง</h1>
+    <div class="contactform">
     <% CWMS.Models.Car car = ViewData["car"] as CWMS.Models.Car; %>
     <% using (Html.BeginForm()) {%>
         <%: Html.ValidationSummary(true) %>
 
         <fieldset>
             <legend>รายละเอียด</legend>
-            
-            <div class="editor-label">
-                <%: Html.Label("เลขคูปอง") %>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.Number) %>
-                <%: Html.ValidationMessageFor(model => model.Number) %>
-            </div>
-            
-            <div class="editor-label">
-                <%: Html.Label("จำนวนครั้ง") %>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.OriginalQuantity) %>
-                <%: Html.ValidationMessageFor(model => model.OriginalQuantity) %>
-            </div>
-            
-            <div class="editor-label">
-                <%: Html.Label( "รถ : " + car.RegistrationNumber + " [" + car.Customer.Name + "]") %>
-            </div>
+            <p>
+                <label class="left">เลขที่คูปอง:</label>
+                <%: Html.TextBoxFor(model => model.Number, new { @class = "field" })%>
+            </p>
+            <p>
+                <label class="left">จำนวนครั้ง:</label>
+                <%: Html.TextBoxFor(model => model.OriginalQuantity, new { @class = "field" })%>
+            </p>
+            <p>
+                <label class="left">รายละเอียดรถ: </label><%:Html.TextBox("xx", car.RegistrationNumber + " [" + car.Customer.Name + "]",new{@class="field",@readonly="true"})%>
+            </p>
             <%: Html.Hidden("CarId", car.Id) %>
-            <div class="editor-label">
-                <%: Html.Label("ราคา") %>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.Price) %>
-                <%: Html.ValidationMessageFor(model => model.Price) %>
-            </div>
+            <p>
+                <label class="left">ราคา</label>
+            
+                <%: Html.TextBoxFor(model => model.Price, new { @class = "field" })%>
+            
+            </p>
             
             <p>
-                <input type="submit" value="เพิ่ม" />
+                <input type="submit" value="เพิ่ม" class="button"/>
             </p>
         </fieldset>
 
     <% } %>
-
-
+    </div>
+    </div>
+<div class="corner-content-1col-bottom"></div>
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="SideBar" runat="server">

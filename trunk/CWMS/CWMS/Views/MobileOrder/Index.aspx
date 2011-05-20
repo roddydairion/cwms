@@ -15,9 +15,15 @@
                     ไม่ได้เลือกรถ
                 <%} else{
                       CWMS.Models.Car car = (CWMS.Models.Car)Session["car"];%>
-                      <%try
-                        { %>[ <%: car.Customer.Name%>] <%}
-                        catch { } %><%:car.RegistrationNumber %>
+                      <%if (car.CustomerId.HasValue)
+                        { %>
+                            [ <%: car.Customer.Name%>] 
+                        <%}
+                        else
+                        {%>
+                           [ ไม่ระบุเจ้าของ ] 
+                        <%}%>
+                        [ <%:car.RegistrationNumber %> ]
                 <%} %>
                 </a>
             </li>

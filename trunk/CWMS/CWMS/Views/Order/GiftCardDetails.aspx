@@ -5,26 +5,28 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-
-    <h2>GiftCardDetails</h2>
+<div class="corner-content-1col-top"></div>                        
+<div class="content-1col-nobox">
+    <h1 class="contact">GiftCardDetails</h1>
     <%CWMS.Models.Car car = ViewData["car"] as CWMS.Models.Car; %>
+    <div class="contactform">
     <fieldset>
-        <legend>Fields</legend>
+        <legend>รายละเอียด</legend>
         
-        <div class="display-label">หมายเลข</div>
-        <div class="display-field"><%: Model.Number %></div>
+        <p><label class="left">เลขที่</label>
+        <%: Model.Number %></label></p>
         
-        <div class="display-label">จำนวนเริ่มต้น</div>
-        <div class="display-field"><%: Model.OriginalQuantity %></div>
+        <p><label class="left">จำนวนเริ่มต้น</label>
+        <%: Model.OriginalQuantity %></p>
         
-        <div class="display-label">เหลือ</div>
-        <div class="display-field"><%: Model.CurrentQuantity %></div>
+        <p><label class="left">เหลือ</label>
+        <%: Model.CurrentQuantity %></p>
         
-        <div class="display-label">รถ</div>
-        <div class="display-field"><%: car.CarModel.Name %>-<%: car.RegistrationNumber %> [ <%: Model.Car.Customer.Name %> ]</div>
+        <p><label class="left">รถ</label>
+        <%: car.CarModel.Name %>-<%: car.RegistrationNumber %> [ <%: Model.Car.Customer.Name %> ]</p>
         
-        <div class="display-label">ราคา</div>
-        <div class="display-field"><%: String.Format("{0:F}", Model.Price) %></div>
+        <p><label class="left">ราคา</label>
+        <%: String.Format("{0:F}", Model.Price) %></p>
         <p>
             <%: Html.ActionLink("ใช้คูปองใบนี้","UseGiftCard",new{id=Model.Id,carId = car.Id}) %>
         </p>
@@ -43,12 +45,10 @@
             </tr>
         <%} %>
     </table>
-
-    <p>
-
-        <%: Html.ActionLink("Edit", "Edit", new { id=Model.Id }) %> |
-        <%: Html.ActionLink("Back to List", "Index") %>
-    </p>
+    <br />
+    </div>
+</div>
+<div class="corner-content-1col-bottom"></div>
 
 </asp:Content>
 
