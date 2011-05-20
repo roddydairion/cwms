@@ -67,7 +67,7 @@
                 <tr><td>
                 <%try
                   { %>
-                <%: Html.ActionLink(item.RegistrationNumber, "Details", new { id = item.Id })%>
+                <%: item.RegistrationNumber%>
                 <%}
                   catch { } %>
                 
