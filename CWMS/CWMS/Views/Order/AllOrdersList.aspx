@@ -92,10 +92,59 @@
                 <tr><th class="top" scope="col" colspan="4">ชำระแล้ว</th><th class="top" scope="col" colspan="2"><%: Model.Where(x=>x.Paid.HasValue).Sum(x=>x.Paid) %></th></tr>
                 <tr><th class="top" scope="col" colspan="4">ยังไม่ได้ชำระ</th><th class="top" scope="col" colspan="2"><%: totalPrice- Model.Where(x=>x.Paid.HasValue).Sum(x=>x.Paid) %></th></tr>
             </table>
+
             <br />
             <table>
                 <tr>
-                    
+                    <th colspan="6">คูปองล้างรถ</th>                    
+                </tr>
+                <tr>
+                    <th>วันที่</th>
+                    <th>หมายเลข</th>
+                    <th>จำนวนครั้ง</th>
+                    <th>ราคา</th>
+                    <th>รถที่ซื้อ</th>
+                    <th>ชำระเงิน</th>
+
+                </tr>
+                <%foreach(var item in ((IEnumerable<CWMS.Models.GiftCard>)(ViewData["giftCards"]))){ %>
+                    <tr>
+                        <td><%: item.Date %></td>
+                        <td><%:item.Number %></td>
+                        <td><%:item.OriginalQuantity %></td>
+                        <td><%:item.Price %></td>
+                        <td><%: item.Car.RegistrationNumber %> [ <%:item.Car.CarModel.CarBrand.Name %> - <%: item.Car.CarModel.Name %> ]</td>
+                        <td>
+                            <% if(item.IsPaid){ %>
+                                ชำระแล้ว
+                            <%} else{%>
+                                <%: Html.ActionLink("คลิกเพื่อชำระเงิน", "PaidGiftCard", new { id = item.Id }) %>
+                            <%} %>
+                        </td>
+                    </tr>
+                <%} %>
+                <tr>
+                    <th colspan="4">รวม</th>
+                    <th><%: ((IEnumerable<CWMS.Models.GiftCard>)(ViewData["giftCards"])).Sum(x => x.Price)%></th>
+
+                    <th>บาท</th>
+
+                </tr>
+
+                <tr>
+                    <th colspan="4">ชำระแล้ว</th>
+                    <th><%: ((IEnumerable<CWMS.Models.GiftCard>)(ViewData["giftCards"])).Where(x => x.IsPaid).Sum(x => x.Price)%></th>
+
+                    <th>บาท</th>
+
+                </tr>
+
+                <tr>
+                    <th colspan="4">ค้างชำระ</th>
+                    <th><%: ((IEnumerable<CWMS.Models.GiftCard>)(ViewData["giftCards"])).Where(x => !x.IsPaid).Sum(x => x.Price)%></th>
+
+                    <th>บาท</th>
+
                 </tr>
             </table>
         </div> 

@@ -78,12 +78,12 @@ namespace CWMS.Models
     partial void InsertOrder(Order instance);
     partial void UpdateOrder(Order instance);
     partial void DeleteOrder(Order instance);
-    partial void InsertGiftCardUsage(GiftCardUsage instance);
-    partial void UpdateGiftCardUsage(GiftCardUsage instance);
-    partial void DeleteGiftCardUsage(GiftCardUsage instance);
     partial void InsertGiftCard(GiftCard instance);
     partial void UpdateGiftCard(GiftCard instance);
     partial void DeleteGiftCard(GiftCard instance);
+    partial void InsertGiftCardUsage(GiftCardUsage instance);
+    partial void UpdateGiftCardUsage(GiftCardUsage instance);
+    partial void DeleteGiftCardUsage(GiftCardUsage instance);
     #endregion
 		
 		public CWMSDataClassesDataContext() : 
@@ -260,19 +260,19 @@ namespace CWMS.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<GiftCardUsage> GiftCardUsages
-		{
-			get
-			{
-				return this.GetTable<GiftCardUsage>();
-			}
-		}
-		
 		public System.Data.Linq.Table<GiftCard> GiftCards
 		{
 			get
 			{
 				return this.GetTable<GiftCard>();
+			}
+		}
+		
+		public System.Data.Linq.Table<GiftCardUsage> GiftCardUsages
+		{
+			get
+			{
+				return this.GetTable<GiftCardUsage>();
 			}
 		}
 	}
@@ -2387,9 +2387,9 @@ namespace CWMS.Models
 		
 		private EntitySet<Order> _Orders;
 		
-		private EntitySet<GiftCardUsage> _GiftCardUsages;
-		
 		private EntitySet<GiftCard> _GiftCards;
+		
+		private EntitySet<GiftCardUsage> _GiftCardUsages;
 		
 		private EntityRef<Customer> _Customer;
 		
@@ -2412,8 +2412,8 @@ namespace CWMS.Models
 		public Car()
 		{
 			this._Orders = new EntitySet<Order>(new Action<Order>(this.attach_Orders), new Action<Order>(this.detach_Orders));
-			this._GiftCardUsages = new EntitySet<GiftCardUsage>(new Action<GiftCardUsage>(this.attach_GiftCardUsages), new Action<GiftCardUsage>(this.detach_GiftCardUsages));
 			this._GiftCards = new EntitySet<GiftCard>(new Action<GiftCard>(this.attach_GiftCards), new Action<GiftCard>(this.detach_GiftCards));
+			this._GiftCardUsages = new EntitySet<GiftCardUsage>(new Action<GiftCardUsage>(this.attach_GiftCardUsages), new Action<GiftCardUsage>(this.detach_GiftCardUsages));
 			this._Customer = default(EntityRef<Customer>);
 			this._CarModel = default(EntityRef<CarModel>);
 			OnCreated();
@@ -2520,19 +2520,6 @@ namespace CWMS.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Car_GiftCardUsage", Storage="_GiftCardUsages", ThisKey="Id", OtherKey="CarId")]
-		public EntitySet<GiftCardUsage> GiftCardUsages
-		{
-			get
-			{
-				return this._GiftCardUsages;
-			}
-			set
-			{
-				this._GiftCardUsages.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Car_GiftCard", Storage="_GiftCards", ThisKey="Id", OtherKey="CarId")]
 		public EntitySet<GiftCard> GiftCards
 		{
@@ -2543,6 +2530,19 @@ namespace CWMS.Models
 			set
 			{
 				this._GiftCards.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Car_GiftCardUsage", Storage="_GiftCardUsages", ThisKey="Id", OtherKey="CarId")]
+		public EntitySet<GiftCardUsage> GiftCardUsages
+		{
+			get
+			{
+				return this._GiftCardUsages;
+			}
+			set
+			{
+				this._GiftCardUsages.Assign(value);
 			}
 		}
 		
@@ -2646,18 +2646,6 @@ namespace CWMS.Models
 			entity.Car = null;
 		}
 		
-		private void attach_GiftCardUsages(GiftCardUsage entity)
-		{
-			this.SendPropertyChanging();
-			entity.Car = this;
-		}
-		
-		private void detach_GiftCardUsages(GiftCardUsage entity)
-		{
-			this.SendPropertyChanging();
-			entity.Car = null;
-		}
-		
 		private void attach_GiftCards(GiftCard entity)
 		{
 			this.SendPropertyChanging();
@@ -2665,6 +2653,18 @@ namespace CWMS.Models
 		}
 		
 		private void detach_GiftCards(GiftCard entity)
+		{
+			this.SendPropertyChanging();
+			entity.Car = null;
+		}
+		
+		private void attach_GiftCardUsages(GiftCardUsage entity)
+		{
+			this.SendPropertyChanging();
+			entity.Car = this;
+		}
+		
+		private void detach_GiftCardUsages(GiftCardUsage entity)
 		{
 			this.SendPropertyChanging();
 			entity.Car = null;
@@ -4307,222 +4307,6 @@ namespace CWMS.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.GiftCardUsage")]
-	public partial class GiftCardUsage : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private System.DateTime _Date;
-		
-		private int _GiftCardId;
-		
-		private int _CarId;
-		
-		private EntityRef<Car> _Car;
-		
-		private EntityRef<GiftCard> _GiftCard;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnDateChanging(System.DateTime value);
-    partial void OnDateChanged();
-    partial void OnGiftCardIdChanging(int value);
-    partial void OnGiftCardIdChanged();
-    partial void OnCarIdChanging(int value);
-    partial void OnCarIdChanged();
-    #endregion
-		
-		public GiftCardUsage()
-		{
-			this._Car = default(EntityRef<Car>);
-			this._GiftCard = default(EntityRef<GiftCard>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="DateTime NOT NULL")]
-		public System.DateTime Date
-		{
-			get
-			{
-				return this._Date;
-			}
-			set
-			{
-				if ((this._Date != value))
-				{
-					this.OnDateChanging(value);
-					this.SendPropertyChanging();
-					this._Date = value;
-					this.SendPropertyChanged("Date");
-					this.OnDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GiftCardId", DbType="Int NOT NULL")]
-		public int GiftCardId
-		{
-			get
-			{
-				return this._GiftCardId;
-			}
-			set
-			{
-				if ((this._GiftCardId != value))
-				{
-					if (this._GiftCard.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnGiftCardIdChanging(value);
-					this.SendPropertyChanging();
-					this._GiftCardId = value;
-					this.SendPropertyChanged("GiftCardId");
-					this.OnGiftCardIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CarId", DbType="Int NOT NULL")]
-		public int CarId
-		{
-			get
-			{
-				return this._CarId;
-			}
-			set
-			{
-				if ((this._CarId != value))
-				{
-					if (this._Car.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnCarIdChanging(value);
-					this.SendPropertyChanging();
-					this._CarId = value;
-					this.SendPropertyChanged("CarId");
-					this.OnCarIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Car_GiftCardUsage", Storage="_Car", ThisKey="CarId", OtherKey="Id", IsForeignKey=true)]
-		public Car Car
-		{
-			get
-			{
-				return this._Car.Entity;
-			}
-			set
-			{
-				Car previousValue = this._Car.Entity;
-				if (((previousValue != value) 
-							|| (this._Car.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Car.Entity = null;
-						previousValue.GiftCardUsages.Remove(this);
-					}
-					this._Car.Entity = value;
-					if ((value != null))
-					{
-						value.GiftCardUsages.Add(this);
-						this._CarId = value.Id;
-					}
-					else
-					{
-						this._CarId = default(int);
-					}
-					this.SendPropertyChanged("Car");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GiftCard_GiftCardUsage", Storage="_GiftCard", ThisKey="GiftCardId", OtherKey="Id", IsForeignKey=true)]
-		public GiftCard GiftCard
-		{
-			get
-			{
-				return this._GiftCard.Entity;
-			}
-			set
-			{
-				GiftCard previousValue = this._GiftCard.Entity;
-				if (((previousValue != value) 
-							|| (this._GiftCard.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._GiftCard.Entity = null;
-						previousValue.GiftCardUsages.Remove(this);
-					}
-					this._GiftCard.Entity = value;
-					if ((value != null))
-					{
-						value.GiftCardUsages.Add(this);
-						this._GiftCardId = value.Id;
-					}
-					else
-					{
-						this._GiftCardId = default(int);
-					}
-					this.SendPropertyChanged("GiftCard");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.GiftCard")]
 	public partial class GiftCard : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -4540,6 +4324,10 @@ namespace CWMS.Models
 		private int _CarId;
 		
 		private decimal _Price;
+		
+		private bool _IsPaid;
+		
+		private System.DateTime _Date;
 		
 		private EntitySet<GiftCardUsage> _GiftCardUsages;
 		
@@ -4561,6 +4349,10 @@ namespace CWMS.Models
     partial void OnCarIdChanged();
     partial void OnPriceChanging(decimal value);
     partial void OnPriceChanged();
+    partial void OnIsPaidChanging(bool value);
+    partial void OnIsPaidChanged();
+    partial void OnDateChanging(System.DateTime value);
+    partial void OnDateChanged();
     #endregion
 		
 		public GiftCard()
@@ -4694,6 +4486,46 @@ namespace CWMS.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsPaid", DbType="Bit NOT NULL")]
+		public bool IsPaid
+		{
+			get
+			{
+				return this._IsPaid;
+			}
+			set
+			{
+				if ((this._IsPaid != value))
+				{
+					this.OnIsPaidChanging(value);
+					this.SendPropertyChanging();
+					this._IsPaid = value;
+					this.SendPropertyChanged("IsPaid");
+					this.OnIsPaidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="DateTime NOT NULL")]
+		public System.DateTime Date
+		{
+			get
+			{
+				return this._Date;
+			}
+			set
+			{
+				if ((this._Date != value))
+				{
+					this.OnDateChanging(value);
+					this.SendPropertyChanging();
+					this._Date = value;
+					this.SendPropertyChanged("Date");
+					this.OnDateChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GiftCard_GiftCardUsage", Storage="_GiftCardUsages", ThisKey="Id", OtherKey="GiftCardId")]
 		public EntitySet<GiftCardUsage> GiftCardUsages
 		{
@@ -4771,6 +4603,246 @@ namespace CWMS.Models
 		{
 			this.SendPropertyChanging();
 			entity.GiftCard = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.GiftCardUsage")]
+	public partial class GiftCardUsage : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private System.DateTime _Date;
+		
+		private int _GiftCardId;
+		
+		private int _CarId;
+		
+		private System.Nullable<int> _SlotNumber;
+		
+		private EntityRef<Car> _Car;
+		
+		private EntityRef<GiftCard> _GiftCard;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnDateChanging(System.DateTime value);
+    partial void OnDateChanged();
+    partial void OnGiftCardIdChanging(int value);
+    partial void OnGiftCardIdChanged();
+    partial void OnCarIdChanging(int value);
+    partial void OnCarIdChanged();
+    partial void OnSlotNumberChanging(System.Nullable<int> value);
+    partial void OnSlotNumberChanged();
+    #endregion
+		
+		public GiftCardUsage()
+		{
+			this._Car = default(EntityRef<Car>);
+			this._GiftCard = default(EntityRef<GiftCard>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="DateTime NOT NULL")]
+		public System.DateTime Date
+		{
+			get
+			{
+				return this._Date;
+			}
+			set
+			{
+				if ((this._Date != value))
+				{
+					this.OnDateChanging(value);
+					this.SendPropertyChanging();
+					this._Date = value;
+					this.SendPropertyChanged("Date");
+					this.OnDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GiftCardId", DbType="Int NOT NULL")]
+		public int GiftCardId
+		{
+			get
+			{
+				return this._GiftCardId;
+			}
+			set
+			{
+				if ((this._GiftCardId != value))
+				{
+					if (this._GiftCard.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnGiftCardIdChanging(value);
+					this.SendPropertyChanging();
+					this._GiftCardId = value;
+					this.SendPropertyChanged("GiftCardId");
+					this.OnGiftCardIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CarId", DbType="Int NOT NULL")]
+		public int CarId
+		{
+			get
+			{
+				return this._CarId;
+			}
+			set
+			{
+				if ((this._CarId != value))
+				{
+					if (this._Car.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCarIdChanging(value);
+					this.SendPropertyChanging();
+					this._CarId = value;
+					this.SendPropertyChanged("CarId");
+					this.OnCarIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SlotNumber", DbType="Int")]
+		public System.Nullable<int> SlotNumber
+		{
+			get
+			{
+				return this._SlotNumber;
+			}
+			set
+			{
+				if ((this._SlotNumber != value))
+				{
+					this.OnSlotNumberChanging(value);
+					this.SendPropertyChanging();
+					this._SlotNumber = value;
+					this.SendPropertyChanged("SlotNumber");
+					this.OnSlotNumberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Car_GiftCardUsage", Storage="_Car", ThisKey="CarId", OtherKey="Id", IsForeignKey=true)]
+		public Car Car
+		{
+			get
+			{
+				return this._Car.Entity;
+			}
+			set
+			{
+				Car previousValue = this._Car.Entity;
+				if (((previousValue != value) 
+							|| (this._Car.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Car.Entity = null;
+						previousValue.GiftCardUsages.Remove(this);
+					}
+					this._Car.Entity = value;
+					if ((value != null))
+					{
+						value.GiftCardUsages.Add(this);
+						this._CarId = value.Id;
+					}
+					else
+					{
+						this._CarId = default(int);
+					}
+					this.SendPropertyChanged("Car");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GiftCard_GiftCardUsage", Storage="_GiftCard", ThisKey="GiftCardId", OtherKey="Id", IsForeignKey=true)]
+		public GiftCard GiftCard
+		{
+			get
+			{
+				return this._GiftCard.Entity;
+			}
+			set
+			{
+				GiftCard previousValue = this._GiftCard.Entity;
+				if (((previousValue != value) 
+							|| (this._GiftCard.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._GiftCard.Entity = null;
+						previousValue.GiftCardUsages.Remove(this);
+					}
+					this._GiftCard.Entity = value;
+					if ((value != null))
+					{
+						value.GiftCardUsages.Add(this);
+						this._GiftCardId = value.Id;
+					}
+					else
+					{
+						this._GiftCardId = default(int);
+					}
+					this.SendPropertyChanged("GiftCard");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 }

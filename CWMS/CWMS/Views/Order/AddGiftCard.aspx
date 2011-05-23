@@ -16,6 +16,7 @@
         <fieldset>
             <legend>รายละเอียด</legend>
             <p>
+                <%: Html.Hidden("Date",DateTime.Now) %>
                 <label class="left">เลขที่คูปอง:</label>
                 <%: Html.TextBoxFor(model => model.Number, new { @class = "field" })%>
             </p>
@@ -24,7 +25,10 @@
                 <%: Html.TextBoxFor(model => model.OriginalQuantity, new { @class = "field" })%>
             </p>
             <p>
-                <label class="left">รายละเอียดรถ: </label><%:Html.TextBox("xx", car.RegistrationNumber + " [" + car.Customer.Name + "]",new{@class="field",@readonly="true"})%>
+                <%string customerName = "ยังไม่ระบุเจ้าของ";
+                  if (car.CustomerId != null)
+                      customerName = car.Customer.Name; %>
+                <label class="left">รายละเอียดรถ: </label><%:Html.TextBox("xx", car.RegistrationNumber + " [" + customerName + "]",new{@class="field",@readonly="true"})%>
             </p>
             <%: Html.Hidden("CarId", car.Id) %>
             <p>

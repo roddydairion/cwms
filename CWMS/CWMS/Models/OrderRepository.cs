@@ -11,6 +11,11 @@ namespace CWMS.Models
         StockRepository stockRepository = new StockRepository();
         ProductRepository productRepository = new ProductRepository();
 
+        public IEnumerable<GiftCard> AllGiftCards() { return db.GiftCards; }
+        public IEnumerable<GiftCardUsage> AllSlotedGiftCardUsages()
+        {
+            return db.GiftCardUsages.Where(x => x.SlotNumber.HasValue);   
+        }
         public IEnumerable<Order> AllUnSlotedOrders()
         {
             return db.Orders.Where(x=>x.CarId.HasValue).Where(x => x.OrderItems.Any(y => y.Product.IsService) && (!x.SlotNumber.HasValue)&&(!x.Paid.HasValue));

@@ -65,7 +65,7 @@
         <classShapeMoniker Id="fe663eff-a23b-47f4-8705-cfaaf92d7b14" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 3.9308120555013); (2.91666666666667 : 3.9308120555013 : JumpStart); (3.08333333333333 : 3.9308120555013 : JumpEnd); (4.25 : 3.9308120555013)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 3.9308120555013); (2.91666666666667 : 3.9308120555013 : JumpStart); (3.08333333333333 : 3.9308120555013 : JumpEnd); (4.25 : 3.9308120555013)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CWMSDataClassesDataContext/Supplier/Supplier_ProductStock" />
       <nodes>
         <classShapeMoniker Id="82132137-2f45-4545-90cf-6473295645aa" />
@@ -182,7 +182,7 @@
         <elementListCompartment Id="5665f6bb-77f5-4e0c-b893-0c1612c4266c" absoluteBounds="3.6399999999999997, 8.46, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(5.625 : 8.79409912109375); (5.85416916666667 : 8.79409912109375 : JumpStart); (6.02083583333333 : 8.79409912109375 : JumpEnd); (6.25 : 8.79409912109375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(5.625 : 8.79409912109375); (6.25 : 8.79409912109375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CWMSDataClassesDataContext/Product/Product_OrderItem" />
       <nodes>
         <classShapeMoniker Id="009ef435-b95d-47c8-aa7a-41e3c63ef655" />
@@ -236,7 +236,7 @@
         <classShapeMoniker Id="b6dddc88-a1ce-4cb9-8889-fa0b73cffdd1" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(0.90624725 : 16.3285953776042); (0.90624725 : 19.8541984049479); (1.04166616666667 : 19.8541984049479 : JumpStart); (1.20833283333333 : 19.8541984049479 : JumpEnd); (2.41666666666667 : 19.8541984049479 : JumpStart); (2.58333333333333 : 19.8541984049479 : JumpEnd); (4.75 : 19.8541984049479)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(0.90624725 : 16.3285953776042); (0.90624725 : 19.8541984049479); (2.41666666666667 : 19.8541984049479 : JumpStart); (2.58333333333333 : 19.8541984049479 : JumpEnd); (4.75 : 19.8541984049479)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CWMSDataClassesDataContext/Car/Car_Order" />
       <nodes>
         <classShapeMoniker Id="909dde3f-e675-4a26-a0fc-89b3a2038cdb" />
@@ -250,37 +250,37 @@
         <classShapeMoniker Id="39dd84a1-b8f9-407d-9d0d-38d6316f9ca4" />
       </nodes>
     </associationConnector>
-    <classShape Id="ebfb5c16-4711-43a0-ac4f-9305c8b43c56" absoluteBounds="1.625, 1, 2, 1.5785953776041666">
-      <DataClassMoniker Name="/CWMSDataClassesDataContext/GiftCardUsage" />
-      <nestedChildShapes>
-        <elementListCompartment Id="22995be6-98a5-4d32-870a-2be36e348cb3" absoluteBounds="1.6400000000000001, 1.46, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <associationConnector edgePoints="[(1.75 : 14.75); (1.75 : 13.5208968098958); (0.583333333333333 : 13.5208968098958 : JumpStart); (0.416666666666667 : 13.5208968098958 : JumpEnd); (0.25 : 13.5208968098958); (0.25 : 1.78929768880208); (1.625 : 1.78929768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/CWMSDataClassesDataContext/Car/Car_GiftCardUsage" />
-      <nodes>
-        <classShapeMoniker Id="909dde3f-e675-4a26-a0fc-89b3a2038cdb" />
-        <classShapeMoniker Id="ebfb5c16-4711-43a0-ac4f-9305c8b43c56" />
-      </nodes>
-    </associationConnector>
-    <classShape Id="655c9ab4-4ccf-425b-9352-477fed01a338" absoluteBounds="4.375, 1.625, 2, 1.9631982421875">
+    <classShape Id="30dddc23-cb5b-4527-b780-4109093e73fb" absoluteBounds="4.875, 1.25, 2, 2.3478011067708335">
       <DataClassMoniker Name="/CWMSDataClassesDataContext/GiftCard" />
       <nestedChildShapes>
-        <elementListCompartment Id="a9cc74b9-8ce0-4aa8-9099-475f674f6827" absoluteBounds="4.39, 2.085, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="99433511-e4db-4465-a32b-e83a469289e4" absoluteBounds="4.89, 1.71, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(4.375 : 2.10179768880208); (3.625 : 2.10179768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/CWMSDataClassesDataContext/GiftCard/GiftCard_GiftCardUsage" />
-      <nodes>
-        <classShapeMoniker Id="655c9ab4-4ccf-425b-9352-477fed01a338" />
-        <classShapeMoniker Id="ebfb5c16-4711-43a0-ac4f-9305c8b43c56" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(2.281252 : 14.75); (2.281252 : 13.5208968098958); (4.125 : 13.5208968098958); (4.125 : 10.2131982421875); (3 : 10.2131982421875); (3 : 2.82859537760417); (3.875 : 2.82859537760417); (3.875 : 2.55090134440104); (4.375 : 2.55090134440104)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(1.75 : 14.75); (1.75 : 13.5208968098958); (4.125 : 13.5208968098958); (4.125 : 10.2131982421875); (3 : 10.2131982421875); (3 : 2.0937505); (4.875 : 2.0937505)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/CWMSDataClassesDataContext/Car/Car_GiftCard" />
       <nodes>
         <classShapeMoniker Id="909dde3f-e675-4a26-a0fc-89b3a2038cdb" />
-        <classShapeMoniker Id="655c9ab4-4ccf-425b-9352-477fed01a338" />
+        <classShapeMoniker Id="30dddc23-cb5b-4527-b780-4109093e73fb" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="2c2fb965-502b-44ce-a614-14defbf8e26c" absoluteBounds="0.5, 1, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/CWMSDataClassesDataContext/GiftCardUsage" />
+      <nestedChildShapes>
+        <elementListCompartment Id="5d6a1f91-20f4-41e7-ab5c-ece7815aed56" absoluteBounds="0.515, 1.46, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(0.751213304136619 : 14.75); (0.561299274188702 : 14.5600859700521); (0.561299274188702 : 2.77089680989583)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CWMSDataClassesDataContext/Car/Car_GiftCardUsage" />
+      <nodes>
+        <classShapeMoniker Id="909dde3f-e675-4a26-a0fc-89b3a2038cdb" />
+        <classShapeMoniker Id="2c2fb965-502b-44ce-a614-14defbf8e26c" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(4.875 : 1.60937525); (2.5 : 1.60937525)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/CWMSDataClassesDataContext/GiftCard/GiftCard_GiftCardUsage" />
+      <nodes>
+        <classShapeMoniker Id="30dddc23-cb5b-4527-b780-4109093e73fb" />
+        <classShapeMoniker Id="2c2fb965-502b-44ce-a614-14defbf8e26c" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

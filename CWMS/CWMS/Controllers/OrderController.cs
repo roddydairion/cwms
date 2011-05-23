@@ -13,6 +13,29 @@ namespace CWMS.Controllers
         CustomerRepository customerRepository = new CustomerRepository();
         ProductRepository productRepository = new ProductRepository();
         CWMSDataClassesDataContext db = new CWMSDataClassesDataContext();
+        public ActionResult PaidGiftCard(int id)
+        {
+            GiftCard giftCard = db.GiftCards.FirstOrDefault(x => x.Id == id);
+            giftCard.IsPaid = true;
+            db.SubmitChanges();
+            return RedirectToAction("AllOrdersList");
+        }
+        public ActionResult SendGiftCardToSlot(int slotNumber, int giveCardUsageId)
+        {
+            GiftCardUsage usage = db.GiftCardUsages.FirstOrDefault(x => x.Id == giveCardUsageId);
+            usage.SlotNumber = slotNumber;
+            db.SubmitChanges();
+            return RedirectToAction("GiftCardDetails", new { id = usage.GiftCardId });
+        }
+        public ActionResult RemoveGiftCardFromSlot(int giveCardUsageId)
+        {
+            GiftCardUsage usage = db.GiftCardUsages.FirstOrDefault(x => x.Id == giveCardUsageId);
+            usage.SlotNumber = null;
+            db.SubmitChanges();
+            return RedirectToAction("GiftCardDetails", new { id = usage.GiftCardId });
+        }
+
+
         public ActionResult GiftCardDetails(int id,int? carId)
         {
             GiftCard giftCard = db.GiftCards.FirstOrDefault(x => x.Id == id);
@@ -83,8 +106,24 @@ namespace CWMS.Controllers
             ViewData["end"] = end;
             return View(repository.AllOrders().Where(x => (x.OrderDate.Date >= start.Date) && (x.OrderDate.Date <= end.Date)).OrderBy(x => x.OrderDate));
         }
+        public ActionResult DeleteGiftCardUsage(int id)
+        {
+            GiftCardUsage usage = db.GiftCardUsages.FirstOrDefault(x => x.Id == id);
+            int giftCardId = usage.GiftCardId;
+            db.GiftCardUsages.DeleteOnSubmit(usage);
+            db.SubmitChanges();
+            return RedirectToAction("GiftCardDetails", new { id = giftCardId });
+        }
+        public ActionResult DeleteGiftCard(int id)
+        {
+            db.GiftCards.DeleteOnSubmit(db.GiftCards.FirstOrDefault(x => x.Id == id));
+            db.SubmitChanges();
+            return RedirectToAction("SearchGiftCard");
+        }
+
         public ActionResult AllOrdersList(int? startDay, int? startMonth, int? startYear,int? endDay,int? endMonth, int? endYear) 
         {
+            ViewData["giftCards"] = repository.AllGiftCards().Where(x => x.Date == DateTime.Now.Date);
             if (!startDay.HasValue)
             {
                 return View(repository.AllOrders().Where(x=>x.OrderDate.Date == DateTime.Now.Date));
@@ -101,6 +140,7 @@ namespace CWMS.Controllers
                     endMonth.ToString().PadLeft(2, '0') +
                     endYear.ToString(), "ddMMyyyy", new CultureInfo("th-TH"));
                 ViewData["endDate"] = endDate;
+                ViewData["giftCards"] = repository.AllGiftCards().Where(x => x.Date.Date >= startDate.Date.Date && x.Date.Date <= endDate.Date);
                 return View(repository.AllOrders().Where(x=>(x.OrderDate.Date >= startDate.Date)&&(x.OrderDate.Date <= endDate.Date)).OrderByDescending(x=>x.OrderDate));
             }
         }
