@@ -29,6 +29,9 @@
                 หมายเลข
             </th>
             <th>
+                วันที่
+            </th>
+            <th>
                 จำนวนเริ่มต้น
             </th>
             <th>
@@ -50,6 +53,9 @@
             </td>
             <td>
                 <%: item.Number %>
+            </td>
+            <td>
+                <%: item.Date %>
             </td>
             <td>
                 <%: item.OriginalQuantity %>
