@@ -120,7 +120,14 @@ namespace CWMS.Controllers
         {
             ViewData["allProductGroups"] = productRepository.AllProductGroup();
             ViewData["allUngroupProducts"] = productRepository.AllProducts().Where(x => !x.ProductGroupId.HasValue);
-            return View("Index",repository.AllCustomers().Where(x=>x.Name.Contains(s)));
+            if (!string.IsNullOrEmpty(s))
+            {
+                return View("Index", repository.AllCustomers().Where(x => !string.IsNullOrEmpty(x.Name)).Where(x => x.Name.Contains(s)));
+            }
+            else
+            {
+                return View("Index", repository.AllCustomers());
+            }
         }
         public ActionResult Index()
         {
