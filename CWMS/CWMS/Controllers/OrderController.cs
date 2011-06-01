@@ -20,19 +20,19 @@ namespace CWMS.Controllers
             db.SubmitChanges();
             return RedirectToAction("AllOrdersList");
         }
-        public ActionResult SendGiftCardToSlot(int slotNumber, int giveCardUsageId)
+        public ActionResult SendGiftCardToSlot(int slotNumber, int giveCardUsageId,int carId)
         {
             GiftCardUsage usage = db.GiftCardUsages.FirstOrDefault(x => x.Id == giveCardUsageId);
             usage.SlotNumber = slotNumber;
             db.SubmitChanges();
-            return RedirectToAction("GiftCardDetails", new { id = usage.GiftCardId });
+            return RedirectToAction("GiftCardDetails", new { id = usage.GiftCardId,carId=carId});
         }
-        public ActionResult RemoveGiftCardFromSlot(int giveCardUsageId)
+        public ActionResult RemoveGiftCardFromSlot(int giveCardUsageId,int carId)
         {
             GiftCardUsage usage = db.GiftCardUsages.FirstOrDefault(x => x.Id == giveCardUsageId);
             usage.SlotNumber = null;
             db.SubmitChanges();
-            return RedirectToAction("GiftCardDetails", new { id = usage.GiftCardId });
+            return RedirectToAction("GiftCardDetails", new { id = usage.GiftCardId ,carId=carId});
         }
 
 
@@ -126,6 +126,8 @@ namespace CWMS.Controllers
             ViewData["giftCards"] = repository.AllGiftCards().Where(x => x.Date == DateTime.Now.Date);
             if (!startDay.HasValue)
             {
+
+                ViewData["giftCards"] = repository.AllGiftCards().Where(x => x.Date.Date >= DateTime.Now.Date.Date && x.Date.Date <= DateTime.Now.Date);
                 return View(repository.AllOrders().Where(x=>x.OrderDate.Date == DateTime.Now.Date));
             }
             else

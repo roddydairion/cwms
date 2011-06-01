@@ -50,6 +50,7 @@
                 <td>
                     <%using(Html.BeginForm("SendGiftCardToSlot","Order",FormMethod.Get)){ %>
                     <%: Html.DropDownList("slotNumber", new SelectList(System.Linq.Enumerable.Range(1, 10)), new { @class = "combo",@style="width: 100px;" })%>
+                    <%: Html.Hidden("carId", car.Id) %>
                     <%: Html.Hidden("giveCardUsageId", item.Id) %>
                     <input type="submit" value="submit" />
                     <%} %>
@@ -58,7 +59,7 @@
                 <td>
                     <% if (item.SlotNumber.HasValue)
                        {%>
-                       <%: Html.ActionLink("นำออกจากช่องจอด ["+item.SlotNumber.Value.ToString()+"]", "RemoveGiftCardFromSlot", new { giveCardUsageId = item.Id }, null)%>
+                       <%: Html.ActionLink("นำออกจากช่องจอด ["+item.SlotNumber.Value.ToString()+"]", "RemoveGiftCardFromSlot", new { giveCardUsageId = item.Id,carId =  car.Id}, null)%>
                        <%} %>
                 </td>
                 <td>

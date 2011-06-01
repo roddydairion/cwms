@@ -33,11 +33,14 @@
             <tr><th class="top" colspan="3">รายชื่อลูกค้า</th></tr>
             <%foreach(var item in Model){ %>
                 <tr><td>
-                <%try
+                <%if (!string.IsNullOrEmpty(item.Name))
                   { %>
                 <%: Html.ActionLink(item.Name, "Details", new { id = item.Id })%>
                 <%}
-                  catch { } %>
+                  else
+                  {%>
+                    <%: Html.ActionLink("ไม่ระบุชื่อ", "Details", new { id = item.Id })%>
+                  <%}%>
                 &nbsp;<%= Html.ActionLink("[ ลบ ]","DeleteCustomer",new{id=item.Id}) %>
                 
                 </td>
@@ -62,6 +65,8 @@
           
           <table>
             <tr><th class="top" colspan="2">รายการรถที่ยังไม่ได้เพิ่มข้อมูลลูกค้า</th></tr>
+            <%if (ViewData["nullCustomerCars"] != null)
+              { %>
             <%foreach (var item in ViewData["nullCustomerCars"] as IEnumerable<CWMS.Models.Car>)
               { %>
                 <tr><td>
@@ -73,10 +78,11 @@
                 
                 </td>
                 <td style="width: 200px;">
-                <%: item.CarModel.CarBrand.Name %>: <%: item.CarModel.Name %>
+                <%: item.CarModel.CarBrand.Name%>: <%: item.CarModel.Name%>
                 </td>
                 </tr>
-            <%} %>
+            <%}
+              } %>
           </table>  
 
           <div class="contactform">
